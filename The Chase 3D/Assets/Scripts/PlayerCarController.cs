@@ -6,6 +6,8 @@ public class PlayerCarController : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float steer;
+    [SerializeField] private float rotationForce;
+    [SerializeField] private float rotationDamping;
 
     private Rigidbody myRigidBody;
     private int currentAngle;
@@ -16,8 +18,7 @@ public class PlayerCarController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
-        // Get the vertical input for forward/backward movement
+    { // Get the vertical input for forward/backward movement
         float moveInput = Input.GetAxis("Vertical");
         // Get the horizontal input for steering
         float steerInput = Input.GetAxis("Horizontal");
@@ -30,10 +31,16 @@ public class PlayerCarController : MonoBehaviour
 
         // Calculate rotation based on steering input
         float rotation = steerInput * steer;
-        Quaternion deltaRotation = Quaternion.Euler(0f, rotation, 0f);
 
-        // Apply rotation using Rigidbody.MoveRotation
-        myRigidBody.MoveRotation(myRigidBody.rotation * deltaRotation);
+        // Apply rotation using AddTorque to allow external forces to affect it
+        myRigidBody.AddTorque(Vector3.up * rotation * rotationForce);
+
+        // Apply damping to gradually reduce rotation when no steering input
+        if (Mathf.Approximately(steerInput, 0f))
+        {
+            float dampingTorque = -myRigidBody.angularVelocity.y * rotationDamping;
+            myRigidBody.AddTorque(Vector3.up * dampingTorque);
+        }
 
     }
 }

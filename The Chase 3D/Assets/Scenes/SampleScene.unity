@@ -245,7 +245,7 @@ Transform:
   m_GameObject: {fileID: 784802959}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.32, y: 0, z: -7.85}
+  m_LocalPosition: {x: -9.32, y: 0, z: -22.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -312,8 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0012126be94ae2c4bacf8176592c8b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 35
-  steer: 5
+  speed: 31
+  steer: 4
 --- !u!1 &804024139
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +375,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7a54b0fc7e17a84492d83433f152c05, type: 2}
+  - {fileID: 2100000, guid: 5f73475cf0cad364b9800b85c2a229fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -664,6 +664,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   steer: 10
+  rotationForce: 5
+  rotationDamping: 15
 --- !u!54 &1971594039
 Rigidbody:
   m_ObjectHideFlags: 0
