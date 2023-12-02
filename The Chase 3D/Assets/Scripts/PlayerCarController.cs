@@ -4,32 +4,36 @@ using UnityEngine;
 
 public class PlayerCarController : MonoBehaviour
 {
-    public Rigidbody sphereRB;
-    private float moveInput;
-    public float forwardSpeed;
-    public float reverseSpeed;
-    private float turnInput;
-    public float turnSpeed;
+    [SerializeField] private float speed;
+    [SerializeField] private float steer;
+
+    private Rigidbody myRigidBody;
+    private int currentAngle;
 
     private void Start()
     {
-        sphereRB.transform.parent = null;
+        myRigidBody= GetComponent<Rigidbody>(); 
     }
 
-    private void Update()
-    {
-        moveInput = Input.GetAxisRaw("Vertical");
-        turnInput = Input.GetAxisRaw("Horizontal");
-
-        moveInput *= moveInput > 0 ? forwardSpeed : reverseSpeed;
-
-        transform.position= sphereRB.transform.position;
-
-        float newRotation=turnInput*turnSpeed* Time.deltaTime*Input.GetAxisRaw("Vertical");
-        transform.Rotate(0, newRotation, 0);
-    }
     private void FixedUpdate()
     {
-        sphereRB.AddForce(transform.forward * moveInput , ForceMode.Acceleration);
+        // Get the vertical input for forward/backward movement
+        float moveInput = Input.GetAxis("Vertical");
+        // Get the horizontal input for steering
+        float steerInput = Input.GetAxis("Horizontal");
+
+        // Calculate the forward movement
+        Vector3 moveDirection = transform.forward * moveInput * speed;
+
+        // Apply velocity for forward movement
+        myRigidBody.velocity = moveDirection;
+
+        // Calculate rotation based on steering input
+        float rotation = steerInput * steer;
+        Quaternion deltaRotation = Quaternion.Euler(0f, rotation, 0f);
+
+        // Apply rotation using Rigidbody.MoveRotation
+        myRigidBody.MoveRotation(myRigidBody.rotation * deltaRotation);
+
     }
 }
