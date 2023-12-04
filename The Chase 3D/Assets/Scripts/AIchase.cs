@@ -5,45 +5,70 @@ using UnityEngine;
 
 public class AIchase : MonoBehaviour
 {
-    [SerializeField]
-    float moveSpeed = 20f;
-    [SerializeField]
-    float steer = 10f;
-    [SerializeField]
-    float offset;
-    public Transform target;
-    float input;
+    [SerializeField] private float speed;
+    [SerializeField] private float steer;
+    [SerializeField] private int numRays = 5;
+    [SerializeField] private float rayAngleIncrement = 45f;
+    [SerializeField] private float raycastRange = 10f;
+    [SerializeField] private float reducedSpeed = 5f;
 
+    private GameObject playerCar;
+    private Rigidbody myRigidBody;
 
-    Rigidbody myRigidBody;
-    // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody>();
-
-
-    }
-    void Update()
-    {
-
-
     }
 
-    // Update is called once per frame
     void FixedUpdate()
-    { // Calculate the direction to the target
-        Vector3 direction = (target.position - transform.position).normalized;
+    {
+        if (playerCar == null)
+        {
+            playerCar = GameObject.FindGameObjectWithTag("Player");
+            return;
+        }
 
-        // Rotate to look at the target
-        transform.LookAt(target);
+        // Check for obstacles using raycasting
+        bool obstacleDetected = false;
+        Vector3 obstacleDirection = Vector3.zero;
 
-        // Move towards the target
-        myRigidBody.velocity = direction * moveSpeed;
+        for (int i = 0; i < numRays; i++)
+        {
+            Vector3 rayDirection = Quaternion.Euler(0, i * rayAngleIncrement, 0) * transform.forward;
 
-        // Optionally, you can also apply rotation based on the direction
-        float rotationSteer = Vector3.Cross(transform.up, direction).y;
-        myRigidBody.angularVelocity = new Vector3(0f, rotationSteer * steer, 0f);
+            // Draw the ray for debugging
+            Debug.DrawRay(transform.position, rayDirection * raycastRange, Color.red);
 
+            if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, raycastRange))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    // Ignore player car
+                    continue;
+                }
 
+                obstacleDetected = true;
+                obstacleDirection += hit.normal;
+            }
+        }
+
+        if (obstacleDetected)
+        {
+            obstacleDirection.Normalize();
+
+            // Adjust steering and velocity to avoid the obstacle
+            Vector3 avoidanceDirection = Quaternion.LookRotation(obstacleDirection, Vector3.up).eulerAngles;
+            myRigidBody.angularVelocity = steer * avoidanceDirection.normalized;
+            myRigidBody.velocity = avoidanceDirection.normalized * reducedSpeed;
+        }
+        else
+        {
+            // Follow the player car normally
+            Vector3 pointTarget = playerCar.transform.position - transform.position;
+            pointTarget.Normalize();
+
+            myRigidBody.angularVelocity = steer * Vector3.Cross(transform.forward, pointTarget);
+            myRigidBody.velocity = transform.forward * speed;
+        }
     }
 }
