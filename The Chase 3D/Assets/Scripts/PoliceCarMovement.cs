@@ -71,7 +71,7 @@ public class PoliceCarMovement : MonoBehaviour
         myRigidBody.angularVelocity = 50 * avoidSteerSmooth * new Vector3(0, 1, 0);
 
         // You may also adjust the forward velocity to slow down when avoiding
-        // myRigidBody.velocity = transform.forward * (chaseSpeed * 0.5f);
+         myRigidBody.velocity = transform.forward * (chaseSpeed * 0.5f);
     }
 
     void Sensors()
@@ -92,7 +92,7 @@ public class PoliceCarMovement : MonoBehaviour
             if (hit.collider.CompareTag("Obstacle"))
             {
                 avoiding = true;
-                avoidSteerMultiplier =- 1f;
+                avoidSteerMultiplier =- 5f;
             }
 
         }
@@ -104,7 +104,7 @@ public class PoliceCarMovement : MonoBehaviour
             if (hit.collider.CompareTag("Obstacle"))
             {
                 avoiding = true;
-                avoidSteerMultiplier =- 0.5f;
+                avoidSteerMultiplier =- 2.5f;
             }
 
         }
@@ -117,7 +117,7 @@ public class PoliceCarMovement : MonoBehaviour
             if (hit.collider.CompareTag("Obstacle"))
             {
                 avoiding = true;
-                avoidSteerMultiplier = 1f;
+                avoidSteerMultiplier = 5f;
             }
 
         }
@@ -129,13 +129,12 @@ public class PoliceCarMovement : MonoBehaviour
             if (hit.collider.CompareTag("Obstacle"))
             {
                 avoiding = true;
-                avoidSteerMultiplier = 0.5f;
+                avoidSteerMultiplier = 2.5f;
             }
 
         }
 
-
-            
+       
        
 
 

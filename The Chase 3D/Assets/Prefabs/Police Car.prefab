@@ -288,14 +288,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0012126be94ae2c4bacf8176592c8b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseSpeed: 33
-  steer: 4
+  chaseSpeed: 32
+  steer: 3
   detectionRadius: 25
-  sensorLength: 20
+  sensorLength: 5
   frontSen: {x: 0, y: 0.2, z: 2.15}
   frontSideSen: 0.8
   frontSenAngle: 30
-  avoiding: 0
+  avoiding: 1
   isChasing: 0
 --- !u!1 &4336643594580636651
 GameObject:
