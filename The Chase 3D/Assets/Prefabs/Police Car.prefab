@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 1016053592966334461}
   - component: {fileID: 2935077747176925859}
   - component: {fileID: 5729378298099931734}
+  - component: {fileID: -6006029418553730739}
   m_Layer: 0
   m_Name: Police Car
   m_TagString: Untagged
@@ -254,7 +255,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 84
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &2935077747176925859
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -297,6 +298,19 @@ MonoBehaviour:
   frontSenAngle: 30
   avoiding: 1
   isChasing: 0
+--- !u!114 &-6006029418553730739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594948598691048385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3aaa0896db511047a2029f7199d62e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 5418317949453390965, guid: 1bc7a1da536aac34d8799e0f982606a1, type: 3}
 --- !u!1 &4336643594580636651
 GameObject:
   m_ObjectHideFlags: 0
