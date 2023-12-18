@@ -5,26 +5,16 @@ using UnityEngine;
 public class PoliceCarCollison : MonoBehaviour
 {
     public GameObject explosionPrefab; // Drag your explosion prefab here
-    public AudioSource explosionSfx;
-    void Start()
-    {
 
-    }
-
-    void Update()
-    {
-
-    }
-
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         bool playerCollision = collision.gameObject.CompareTag("Player");
         bool obstacleCollision = collision.gameObject.CompareTag("Obstacle");
 
         if (playerCollision || obstacleCollision)
         {
-            
             InstantiateExplosion();
+            AudioManager.Instance.PlayExplosionSound(); // Access the AudioManager to play the explosion sound
             Destroy(gameObject);
         }
     }
@@ -33,9 +23,9 @@ public class PoliceCarCollison : MonoBehaviour
     {
         if (explosionPrefab != null)
         {
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            GameObject explosion=Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            Destroy(explosion, 5f);
         }
     }
-
 
 }

@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 5418317949453390965, guid: 1bc7a1da536aac34d8799e0f982606a1, type: 3}
+  audioSourceHolder: {fileID: 0}
 --- !u!1 &4336643594580636651
 GameObject:
   m_ObjectHideFlags: 0
