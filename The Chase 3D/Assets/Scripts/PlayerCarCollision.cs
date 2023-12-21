@@ -8,6 +8,7 @@ public class PlayerCarCollision : MonoBehaviour
     public float currentHealth;
 
     [SerializeField] private PlayerHealthBar healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,15 +19,17 @@ public class PlayerCarCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
     }
     private void OnCollisionEnter(Collision collision)
     {
         bool policeCarCollision = collision.gameObject.CompareTag("PoliceCar");
-        if(policeCarCollision )
+        if (policeCarCollision)
         {
             currentHealth -= 10f;
-            
+
+
         }
     }
 }
