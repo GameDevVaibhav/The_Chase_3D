@@ -68,5 +68,9 @@ public class BustingArea : MonoBehaviour
             }
         }
     }
+    public bool IsActive()
+    {
+        return policeCarCount > 0; // BustingArea is active if there are police cars inside
+    }
 
 }
