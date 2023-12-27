@@ -8,7 +8,8 @@ public class PlayerGun : MonoBehaviour
     public GameObject m_shotPrefab;
     private BustingArea bustingArea; // Reference to the BustingArea script
 
-    private float shootCooldown = 0.1f; // Time in seconds between each shot
+    private float rotationSpeed = 5f; // Speed of rotation towards the police car
+    private float shootCooldown = 0.3f; // Time in seconds between each shot
     private float nextShootTime;
 
     void Start()
@@ -33,6 +34,9 @@ public class PlayerGun : MonoBehaviour
             GameObject nearestPoliceCar = FindNearestPoliceCar();
             if (nearestPoliceCar != null)
             {
+                // Rotate the parent (GunObject) towards the nearest police car
+                RotateParentTowards(nearestPoliceCar.transform.position);
+
                 Debug.Log("Shoot at Nearest Police Car");
 
                 // Instantiate and shoot the laser at the nearest police car
@@ -43,6 +47,18 @@ public class PlayerGun : MonoBehaviour
                 nextShootTime = Time.time + shootCooldown;
             }
         }
+    }
+
+    void RotateParentTowards(Vector3 targetPosition)
+    {
+        // Get the position of the GunObject in world space
+        Vector3 gunObjectPosition = transform.parent.position;
+
+        // Ensure the y-component is the same to prevent unwanted tilting
+        targetPosition.y = gunObjectPosition.y;
+
+        // Use Transform.LookAt to make the GunObject look at the police car
+        transform.parent.LookAt(targetPosition);
     }
 
     GameObject FindNearestPoliceCar()
