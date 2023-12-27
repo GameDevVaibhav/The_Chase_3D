@@ -10,43 +10,41 @@ public class PlayerGun : MonoBehaviour
     private BustingArea bustingArea; // Reference to the BustingArea script
 
     private float rotationSpeed = 5f; // Speed of rotation towards the police car
-    private float shootCooldown = 0.1f; // Time in seconds between each shot
-    private float nextShootTime;
+    private float shotCooldown = 0.1f; // Time in seconds between each shot
+    private float nextShotTime;
 
     void Start()
     {
         bustingArea = FindObjectOfType<BustingArea>(); // Find the BustingArea script in the scene
-        nextShootTime = Time.time; // Initialize the next shoot time
+        nextShotTime = Time.time; // Initialize the next shot time
     }
 
     void Update()
     {
-        if (bustingArea != null && bustingArea.IsActive())
+        // Check if the mouse button is held down and enough time has passed since the last shot
+        if (Input.GetMouseButton(0) && Time.time >= nextShotTime)
         {
             // Check if the BustingArea is active and shoot automatically at the nearest police car
             TryToShootAtNearestPoliceCar();
+
+            // Update the next shot time based on the cooldown
+            nextShotTime = Time.time + shotCooldown;
         }
     }
 
     void TryToShootAtNearestPoliceCar()
     {
-        if (Time.time >= nextShootTime)
+        GameObject nearestPoliceCar = FindNearestPoliceCar();
+        if (nearestPoliceCar != null)
         {
-            GameObject nearestPoliceCar = FindNearestPoliceCar();
-            if (nearestPoliceCar != null)
-            {
-                // Rotate the parent (GunObject) towards the nearest police car
-                RotateParentTowards(nearestPoliceCar.transform.position);
+            // Rotate the parent (GunObject) towards the nearest police car
+            RotateParentTowards(nearestPoliceCar.transform.position);
 
-                Debug.Log("Shoot at Nearest Police Car");
+            Debug.Log("Shoot at Nearest Police Car");
 
-                // Instantiate and shoot the laser at the nearest police car
-                GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
-                laser.GetComponent<ShotBehaviour>().SetDirection(nearestPoliceCar.transform.position-gunMesh.position);
-
-                // Update the next shoot time based on the cooldown
-                nextShootTime = Time.time + shootCooldown;
-            }
+            // Instantiate and shoot the laser at the nearest police car
+            GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
+            laser.GetComponent<ShotBehaviour>().SetDirection(nearestPoliceCar.transform.position - gunMesh.position);
         }
     }
 
