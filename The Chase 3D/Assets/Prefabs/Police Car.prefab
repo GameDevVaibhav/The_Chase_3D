@@ -260,8 +260,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.092286, y: 2.1232562, z: 4.6910706}
-  m_Center: {x: -0.010303974, y: 1.0253518, z: -0.09287977}
+  m_Size: {x: 2.092286, y: 1.0713911, z: 4.6910706}
+  m_Center: {x: -0.010303974, y: 0.4994192, z: -0.09287977}
 --- !u!114 &5729378298099931734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,7 +863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3482815261436065663, guid: 8ec4cfd3f7f261d4ebb9097453535dec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.599
+      value: 1.909
       objectReference: {fileID: 0}
     - target: {fileID: 3482815261436065663, guid: 8ec4cfd3f7f261d4ebb9097453535dec, type: 3}
       propertyPath: m_LocalPosition.z
@@ -905,6 +905,10 @@ PrefabInstance:
       propertyPath: gunMesh
       value: 
       objectReference: {fileID: 9123664449295894571}
+    - target: {fileID: 5515664588138764114, guid: 8ec4cfd3f7f261d4ebb9097453535dec, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5515664588138764114, guid: 8ec4cfd3f7f261d4ebb9097453535dec, type: 3}
       propertyPath: m_shotPrefab
       value: 

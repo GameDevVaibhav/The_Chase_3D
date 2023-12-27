@@ -4,44 +4,43 @@ using UnityEngine;
 
 public class ShotBehaviour : MonoBehaviour
 {
-    public Vector3 m_target;
-    public GameObject collisionExplosion;
     public float speed;
+    public GameObject collisionExplosion;
 
+    private Vector3 shootDirection; // Direction to move in
 
-    // Update is called once per frame
     void Update()
     {
-        // transform.position += transform.forward * Time.deltaTime * 300f;// The step size is equal to speed times frame time.
-        float step = speed * Time.deltaTime;
-
-        if (m_target != null)
-        {
-            if (transform.position == m_target)
-            {
-                explode();
-                return;
-            }
-            transform.position = Vector3.MoveTowards(transform.position, m_target, step);
-        }
-
+        // Move the shot prefab in the specified direction
+        transform.Translate(shootDirection * speed * Time.deltaTime, Space.World);
     }
 
-    public void setTarget(Vector3 target)
+    public void SetDirection(Vector3 direction)
     {
-        m_target = target;
+        // Set the shoot direction without normalizing to maintain speed
+        shootDirection = direction;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        // Check if the shot prefab hits a police car or player car collider
+        if (other.CompareTag("PoliceCar") || other.CompareTag("Player"))
+        {
+            Debug.Log("Shot Police");
+            explode();
+        }
     }
 
     void explode()
     {
         if (collisionExplosion != null)
         {
-            GameObject explosion = (GameObject)Instantiate(
+            GameObject explosion = Instantiate(
                 collisionExplosion, transform.position, transform.rotation);
+
+            // Destroy the shot prefab upon hitting a police car or player car
             Destroy(gameObject);
-            Destroy(explosion, 0.5f);
+            Destroy(explosion, 1f);
         }
-
-
     }
 }

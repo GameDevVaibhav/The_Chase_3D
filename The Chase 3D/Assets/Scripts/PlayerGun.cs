@@ -6,10 +6,11 @@ using static UnityEngine.Rendering.SplashScreen;
 public class PlayerGun : MonoBehaviour
 {
     public GameObject m_shotPrefab;
+    public Transform gunMesh;
     private BustingArea bustingArea; // Reference to the BustingArea script
 
     private float rotationSpeed = 5f; // Speed of rotation towards the police car
-    private float shootCooldown = 0.3f; // Time in seconds between each shot
+    private float shootCooldown = 0.1f; // Time in seconds between each shot
     private float nextShootTime;
 
     void Start()
@@ -41,7 +42,7 @@ public class PlayerGun : MonoBehaviour
 
                 // Instantiate and shoot the laser at the nearest police car
                 GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
-                laser.GetComponent<ShotBehaviour>().setTarget(nearestPoliceCar.transform.position);
+                laser.GetComponent<ShotBehaviour>().SetDirection(nearestPoliceCar.transform.position-gunMesh.position);
 
                 // Update the next shoot time based on the cooldown
                 nextShootTime = Time.time + shootCooldown;
@@ -51,7 +52,6 @@ public class PlayerGun : MonoBehaviour
 
     void RotateParentTowards(Vector3 targetPosition)
     {
-        // Get the position of the GunObject in world space
         Vector3 gunObjectPosition = transform.parent.position;
 
         // Ensure the y-component is the same to prevent unwanted tilting

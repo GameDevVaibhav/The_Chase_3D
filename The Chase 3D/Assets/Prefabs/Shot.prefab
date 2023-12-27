@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 11489952}
   - component: {fileID: 10825254}
   - component: {fileID: 3493993887433534698}
+  - component: {fileID: 1951705332140539203}
   m_Layer: 0
   m_Name: Shot
   m_TagString: Untagged
@@ -179,6 +180,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cbc34d1a969af41ad62e314c439f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_target: {x: 0, y: 0, z: 0}
+  speed: 2
   collisionExplosion: {fileID: 1750940742320366, guid: 3b2f7b4c9e6fdb14885a2e6392b32e00, type: 3}
-  speed: 50
+--- !u!136 &1951705332140539203
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136330}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25.787386
+  m_Height: 1.5747603
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 25.000006}

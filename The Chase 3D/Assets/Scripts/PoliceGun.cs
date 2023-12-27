@@ -38,10 +38,15 @@ public class PoliceGun : MonoBehaviour
 
                 Debug.Log("Shoot at Player Car");
 
-                // Instantiate and shoot the laser at the player car
-                GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
-                laser.GetComponent<ShotBehaviour>().setTarget(playerCar.transform.position);
+                // Calculate adjusted shot speed based on player car's speed
+                float playerCarSpeed = playerCar.GetComponent<Rigidbody>().velocity.magnitude;
+                float adjustedShotSpeed = m_shotPrefab.GetComponent<ShotBehaviour>().speed + playerCarSpeed*0.3f;
 
+                // Instantiate and shoot the laser at the player car with adjusted speed
+                GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
+                laser.GetComponent<ShotBehaviour>().SetDirection(playerCar.transform.position - gunMesh.position);
+                laser.GetComponent<ShotBehaviour>().speed = adjustedShotSpeed;
+                Debug.Log("Shotspeed" + adjustedShotSpeed);
                 // Update the next shoot time based on the cooldown
                 nextShootTime = Time.time + shootCooldown;
             }

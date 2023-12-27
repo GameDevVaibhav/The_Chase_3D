@@ -59,7 +59,7 @@ public class BustingArea : MonoBehaviour
         if (gameObject.CompareTag("PoliceCar"))
         {
             policeCarCount--;
-            Debug.Log("police count: " + policeCarCount);
+            
 
             // If no more police cars, disable the renderer
             if (policeCarCount == 0)
