@@ -23,7 +23,7 @@ public class PlayerGun : MonoBehaviour
 
     void Update()
     {
-        // Check if the mouse button is held down and enough time has passed since the last shot
+        // Check if the left mouse button is held down and enough time has passed since the last shot
         if (Input.GetMouseButton(0) && Time.time >= nextShotTime)
         {
             // Check if the BustingArea is active and shoot automatically at the nearest visible police car
@@ -32,25 +32,47 @@ public class PlayerGun : MonoBehaviour
             // Update the next shot time based on the cooldown
             nextShotTime = Time.time + shotCooldown;
         }
+
+        // Check if the right mouse button is pressed and enough time has passed since the last shot
+        if (Input.GetMouseButton(1) && Time.time >= nextShotTime)
+        {
+            // Shoot at the nearest cube only if it is visible in the camera's view
+            TryToShootAtVisibleCube();
+
+            // Update the next shot time based on the cooldown
+            nextShotTime = Time.time + shotCooldown;
+        }
     }
 
     void TryToShootAtVisiblePoliceCar()
     {
-        GameObject nearestPoliceCar = FindNearestPoliceCar();
-        if (nearestPoliceCar != null)
+        GameObject nearestVisiblePoliceCar = FindNearestVisiblePoliceCar();
+        if (nearestVisiblePoliceCar != null)
         {
-            // Check if the nearest police car is visible in the camera's view
-            if (IsObjectVisibleInCamera(nearestPoliceCar))
-            {
-                // Rotate the parent (GunObject) towards the nearest police car
-                RotateParentTowards(nearestPoliceCar.transform.position);
+            // Rotate the parent (GunObject) towards the nearest visible police car
+            RotateParentTowards(nearestVisiblePoliceCar.transform.position);
 
-                Debug.Log("Shoot at Visible Police Car");
+            Debug.Log("Shoot at Visible Police Car");
 
-                // Instantiate and shoot the laser at the nearest police car
-                GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
-                laser.GetComponent<ShotBehaviour>().SetDirection(nearestPoliceCar.transform.position - gunMesh.position);
-            }
+            // Instantiate and shoot the laser at the nearest visible police car
+            GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
+            laser.GetComponent<ShotBehaviour>().SetDirection(nearestVisiblePoliceCar.transform.position - gunMesh.position);
+        }
+    }
+
+    void TryToShootAtVisibleCube()
+    {
+        GameObject nearestVisibleCube = FindNearestVisibleCube();
+        if (nearestVisibleCube != null)
+        {
+            // Rotate the parent (GunObject) towards the nearest visible cube
+            RotateParentTowards(nearestVisibleCube.transform.position);
+
+            Debug.Log("Shoot at Visible Cube");
+
+            // Instantiate and shoot the laser at the nearest visible cube
+            GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
+            laser.GetComponent<ShotBehaviour>().SetDirection(nearestVisibleCube.transform.position - gunMesh.position);
         }
     }
 
@@ -61,7 +83,7 @@ public class PlayerGun : MonoBehaviour
             return false;
         }
 
-        // Convert the police car's position to viewport coordinates
+        // Convert the target object's position to viewport coordinates
         Vector3 viewportPos = mainCamera.WorldToViewportPoint(targetObject.transform.position);
 
         // Check if the viewport coordinates fall within the camera's view (0 to 1 for both x and y)
@@ -75,7 +97,7 @@ public class PlayerGun : MonoBehaviour
         // Ensure the y-component is the same to prevent unwanted tilting
         targetPosition.y = gunObjectPosition.y;
 
-        // Use Transform.LookAt to make the GunObject look at the police car
+        // Use Transform.LookAt to make the GunObject look at the target position
         transform.parent.LookAt(targetPosition);
     }
 
@@ -97,5 +119,45 @@ public class PlayerGun : MonoBehaviour
         }
 
         return nearestPoliceCar;
+    }
+
+    GameObject FindNearestVisiblePoliceCar()
+    {
+        GameObject[] policeCars = GameObject.FindGameObjectsWithTag("PoliceCar");
+
+        GameObject nearestVisiblePoliceCar = null;
+        float nearestDistance = float.MaxValue;
+
+        foreach (GameObject policeCar in policeCars)
+        {
+            float distance = Vector3.Distance(transform.position, policeCar.transform.position);
+            if (distance < nearestDistance && IsObjectVisibleInCamera(policeCar))
+            {
+                nearestDistance = distance;
+                nearestVisiblePoliceCar = policeCar;
+            }
+        }
+
+        return nearestVisiblePoliceCar;
+    }
+
+    GameObject FindNearestVisibleCube()
+    {
+        GameObject[] cubes = GameObject.FindGameObjectsWithTag("Cash");
+
+        GameObject nearestVisibleCube = null;
+        float nearestDistance = float.MaxValue;
+
+        foreach (GameObject cube in cubes)
+        {
+            float distance = Vector3.Distance(transform.position, cube.transform.position);
+            if (distance < nearestDistance && IsObjectVisibleInCamera(cube))
+            {
+                nearestDistance = distance;
+                nearestVisibleCube = cube;
+            }
+        }
+
+        return nearestVisibleCube;
     }
 }
