@@ -6,7 +6,7 @@ public class CashBox : MonoBehaviour
 {
     public GameObject dollarBillParticles; // Reference to the dollar bill particle system
     public Material cashBoxMaterial; // Reference to the material of the CashBox
-    public float emissionIncreaseRate = 0.5f; // Adjust the rate at which emission intensity increases
+    public float emissionIncreaseRate = 0.2f; // Adjust the rate at which emission intensity increases
 
     private int hitCount = 0;
     private Score scoreManager;
@@ -43,10 +43,15 @@ public class CashBox : MonoBehaviour
                 // Assuming your emission color is green, you can modify the green channel
                 float newIntensity = currentEmissionColor.g + hitCount * emissionIncreaseRate;
 
-                // Make sure the intensity does not exceed 1
-                newIntensity = Mathf.Clamp01(newIntensity);
+                // Use Mathf.LinearToGammaSpace to convert the linear intensity to gamma space
+                float gammaSpaceIntensity = Mathf.LinearToGammaSpace(newIntensity);
 
-                Color newEmissionColor = new Color(currentEmissionColor.r, newIntensity, currentEmissionColor.b);
+                // Make sure the intensity does not exceed 1
+               // gammaSpaceIntensity = Mathf.Clamp01(gammaSpaceIntensity);
+
+                Color newEmissionColor = new Color(currentEmissionColor.r, gammaSpaceIntensity, currentEmissionColor.b);
+
+                // Assign the modified emission color back to the material
                 cashBoxMaterial.SetColor("_EmissionColor", newEmissionColor);
             }
 
