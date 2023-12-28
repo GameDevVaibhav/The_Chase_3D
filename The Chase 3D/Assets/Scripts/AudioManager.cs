@@ -7,6 +7,8 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     private AudioSource audioSource;
+    public AudioClip explosionClip;
+    public AudioClip cashBoxDestroyedClip;
 
     void Awake()
     {
@@ -20,14 +22,22 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        
     }
 
     public void PlayExplosionSound()
     {
-        if (audioSource != null)
+        if (audioSource != null && explosionClip != null)
         {
+            audioSource.clip = explosionClip;
+            audioSource.Play();
+        }
+    }
+
+    public void PlayCashBoxDestroyedSound()
+    {
+        if (audioSource != null && cashBoxDestroyedClip != null)
+        {
+            audioSource.clip = cashBoxDestroyedClip;
             audioSource.Play();
         }
     }

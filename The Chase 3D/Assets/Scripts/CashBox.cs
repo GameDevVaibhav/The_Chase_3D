@@ -36,19 +36,14 @@ public class CashBox : MonoBehaviour
         scoreManager.IncreaseCashScore(100);
 
         // Trigger the particle system for the dollar bill explosion
-        InstantiateExplosion();
+        Instantiate(dollarBillParticles, transform.position, Quaternion.identity);
 
-        // Perform any additional actions before destroying the CashBox, if needed
+        // Play the cash box destroyed sound
+        AudioManager.Instance.PlayCashBoxDestroyedSound();
+
         Debug.Log("CashBox Destroyed!");
         Destroy(gameObject);
     }
 
-    void InstantiateExplosion()
-    {
-        if (dollarBillParticles != null)
-        {
-            GameObject explosion = Instantiate(dollarBillParticles, transform.position, Quaternion.identity);
-            Destroy(explosion, 2f);
-        }
-    }
+
 }
