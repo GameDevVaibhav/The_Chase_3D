@@ -19,17 +19,25 @@ public class PlayerCarCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
     }
     private void OnCollisionEnter(Collision collision)
     {
         bool policeCarCollision = collision.gameObject.CompareTag("PoliceCar");
+        
         if (policeCarCollision)
         {
             currentHealth -= 10f;
-
-
+        }
+        
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        bool shotCollision = other.gameObject.CompareTag("Shot");
+        if (shotCollision)
+        {
+            currentHealth -= 1f;
         }
     }
 }

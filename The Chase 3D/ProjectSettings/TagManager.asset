@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - PoliceCar
+  - Shot
   layers:
   - Default
   - TransparentFX

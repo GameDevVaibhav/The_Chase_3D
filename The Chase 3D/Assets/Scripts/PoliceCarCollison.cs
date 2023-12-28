@@ -9,7 +9,8 @@ public class PoliceCarCollison : MonoBehaviour
     private float collisionTimer = 0f;
     private bool isCollidingWithPoliceCar = false;
     private float currentHealth;
-    private float maxHealth = 4f;
+    private float maxHealth = 10f;
+    private float shotDamage = 1f;
 
     public BustingArea bustingArea;
 
@@ -53,24 +54,46 @@ public class PoliceCarCollison : MonoBehaviour
             isCollidingWithPoliceCar = false;
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        bool shotCollision = other.gameObject.CompareTag("Shot");
+        Debug.Log("shot police");
+        if (shotCollision)
+        {
+           
+            currentHealth = currentHealth - shotDamage;
+            Debug.Log("currentHealth " + currentHealth);
+        }
+    }
 
     void Update()
     {
-        if (isCollidingWithPoliceCar)
+        Debug.Log("shotdamage "+shotDamage);
+        
+        
+        //if (isCollidingWithPoliceCar)
+        //{
+        //    collisionTimer += Time.deltaTime;
+        //    currentHealth = currentHealth - collisionTimer; 
+        //    Debug.Log(currentHealth);
+        //    //healthBar.UpdateHealthBar(maxHealth, currentHealth);
+        //    //// Check if the collision has lasted for more than 4 seconds
+        //    //if (currentHealth < 0)
+        //    //{
+
+        //    //    AudioManager.Instance.PlayExplosionSound(); // Access the AudioManager to play the explosion sound
+        //    //    Destroy(gameObject);
+        //    //    InstantiateExplosion();
+        //    //}
+        //}
+        healthBar.UpdateHealthBar(maxHealth, currentHealth);
+        // Check if the collision has lasted for more than 4 seconds
+        if (currentHealth < 0)
         {
-            collisionTimer += Time.deltaTime;
-            currentHealth = maxHealth - collisionTimer;
-            healthBar.UpdateHealthBar(maxHealth, currentHealth);
-            // Check if the collision has lasted for more than 4 seconds
-            if (collisionTimer > 4f)
-            {
 
-                AudioManager.Instance.PlayExplosionSound(); // Access the AudioManager to play the explosion sound
-                Destroy(gameObject);
-                InstantiateExplosion();
-            }
-
-
+            AudioManager.Instance.PlayExplosionSound(); // Access the AudioManager to play the explosion sound
+            Destroy(gameObject);
+            InstantiateExplosion();
         }
     }
 

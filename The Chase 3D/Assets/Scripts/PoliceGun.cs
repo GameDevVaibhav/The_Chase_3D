@@ -36,7 +36,7 @@ public class PoliceGun : MonoBehaviour
                 // Rotate the gun mesh towards the player car using LookAt
                 RotateGunMeshTowardsPlayerCar();
 
-                Debug.Log("Shoot at Player Car");
+               // Debug.Log("Shoot at Player Car");
 
                 // Calculate adjusted shot speed based on player car's speed
                 float playerCarSpeed = playerCar.GetComponent<Rigidbody>().velocity.magnitude;
@@ -46,7 +46,7 @@ public class PoliceGun : MonoBehaviour
                 GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
                 laser.GetComponent<ShotBehaviour>().SetDirection(playerCar.transform.position - gunMesh.position);
                 laser.GetComponent<ShotBehaviour>().speed = adjustedShotSpeed;
-                Debug.Log("Shotspeed" + adjustedShotSpeed);
+               // Debug.Log("Shotspeed" + adjustedShotSpeed);
                 // Update the next shoot time based on the cooldown
                 nextShootTime = Time.time + shootCooldown;
             }
