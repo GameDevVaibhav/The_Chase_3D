@@ -101,25 +101,7 @@ public class PlayerGun : MonoBehaviour
         transform.parent.LookAt(targetPosition);
     }
 
-    GameObject FindNearestPoliceCar()
-    {
-        GameObject[] policeCars = GameObject.FindGameObjectsWithTag("PoliceCar");
-
-        GameObject nearestPoliceCar = null;
-        float nearestDistance = float.MaxValue;
-
-        foreach (GameObject policeCar in policeCars)
-        {
-            float distance = Vector3.Distance(transform.position, policeCar.transform.position);
-            if (distance < nearestDistance)
-            {
-                nearestDistance = distance;
-                nearestPoliceCar = policeCar;
-            }
-        }
-
-        return nearestPoliceCar;
-    }
+ 
 
     GameObject FindNearestVisiblePoliceCar()
     {

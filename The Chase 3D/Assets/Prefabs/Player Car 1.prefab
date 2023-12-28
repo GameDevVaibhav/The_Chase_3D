@@ -247,7 +247,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fd5392af75f50cf4da35d82c00974230, type: 3}
-  m_Color: {r: 1, g: 0.23018867, b: 0.23018867, a: 0.75686276}
+  m_Color: {r: 1, g: 0.23018867, b: 0.23018867, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1132,6 +1132,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 6428361547519640439, guid: 4f7bc8fee64a49b4db38c54464c14f5b, type: 3}
+      propertyPath: gunMesh
+      value: 
+      objectReference: {fileID: 1539138086432885055}
     - target: {fileID: 8253375852863079894, guid: 4f7bc8fee64a49b4db38c54464c14f5b, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
