@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CashSpawnner : MonoBehaviour
 {
-    public GameObject cubePrefab;
+    public GameObject cashPrefab;
     public float spawnInterval = 5f; // Time between cube spawns
     public float spawnRadius = 50f; // Range around the player for cube spawns
 
@@ -13,10 +13,10 @@ public class CashSpawnner : MonoBehaviour
     void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // Assuming the player has the "Player" tag
-        StartCoroutine(SpawnCubes());
+        StartCoroutine(SpawnCashBox());
     }
 
-    IEnumerator SpawnCubes()
+    IEnumerator SpawnCashBox()
     {
         while (true)
         {
@@ -25,7 +25,7 @@ public class CashSpawnner : MonoBehaviour
             Vector3 randomPosition = playerTransform.position + randomOffset;
             randomPosition.y = 3f; // Set the Y-axis position to 3
 
-            Instantiate(cubePrefab, randomPosition, Quaternion.identity);
+            Instantiate(cashPrefab, randomPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(spawnInterval);
         }
