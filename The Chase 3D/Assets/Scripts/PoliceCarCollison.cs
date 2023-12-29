@@ -6,10 +6,10 @@ using UnityEngine;
 public class PoliceCarCollison : MonoBehaviour
 {
     public GameObject explosionPrefab; // Drag your explosion prefab here
-    private float collisionTimer = 0f;
+   
     private bool isCollidingWithPoliceCar = false;
-    private float currentHealth;
-    private float maxHealth = 10f;
+    private float currentPoliceHealth;
+    private float maxPoliceHealth = 10f;
     private float shotDamage = 1f;
 
     public BustingArea bustingArea;
@@ -20,8 +20,8 @@ public class PoliceCarCollison : MonoBehaviour
     void Start()
     {
         bustingArea = FindObjectOfType<BustingArea>();
-        currentHealth = maxHealth;
-        healthBar.UpdateHealthBar(maxHealth, currentHealth);
+        currentPoliceHealth = maxPoliceHealth;
+        healthBar.UpdatePoliceHealthBar(maxPoliceHealth, currentPoliceHealth);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -57,24 +57,24 @@ public class PoliceCarCollison : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         bool shotCollision = other.gameObject.CompareTag("Shot");
-        Debug.Log("shot police");
+        
         if (shotCollision)
         {
            
-            currentHealth = currentHealth - shotDamage;
-            Debug.Log("currentHealth " + currentHealth);
+            currentPoliceHealth = currentPoliceHealth - shotDamage;
+            
         }
     }
 
     void Update()
     {
-        Debug.Log("shotdamage "+shotDamage);
+        
         
         
        
-        healthBar.UpdateHealthBar(maxHealth, currentHealth);
-        // Check if the collision has lasted for more than 4 seconds
-        if (currentHealth < 0)
+        healthBar.UpdatePoliceHealthBar(maxPoliceHealth, currentPoliceHealth);
+        
+        if (currentPoliceHealth < 0)
         {
 
             AudioManager.Instance.PlayExplosionSound(); // Access the AudioManager to play the explosion sound
@@ -106,7 +106,7 @@ public class PoliceCarCollison : MonoBehaviour
                 bustingArea.circleRenderer.enabled = false;
             }
 
-            Debug.Log("police count: " + bustingArea.policeCarCount);
+            
         }
     }
 

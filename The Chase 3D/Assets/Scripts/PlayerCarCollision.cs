@@ -13,13 +13,13 @@ public class PlayerCarCollision : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        UpdateHealthBar();
+        UpdatePlayerHealthBar();
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateHealthBar();
+        UpdatePlayerHealthBar();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,7 +29,7 @@ public class PlayerCarCollision : MonoBehaviour
         if (policeCarCollision)
         {
             currentHealth -= 10f;
-            UpdateHealthBar();
+            UpdatePlayerHealthBar();
         }
     }
 
@@ -40,10 +40,10 @@ public class PlayerCarCollision : MonoBehaviour
         if (shotCollision)
         {
             currentHealth -= 1f;
-            Debug.Log("Currenthealth" + currentHealth);
-            UpdateHealthBar();
+            
+            UpdatePlayerHealthBar();
         }
-        if(healthCollision)
+        if (healthCollision)
         {
             currentHealth += 10f;
         }
@@ -51,10 +51,10 @@ public class PlayerCarCollision : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
     }
 
-    private void UpdateHealthBar()
+    private void UpdatePlayerHealthBar()
     {
-        Debug.Log("Currenthealth" + currentHealth);
+        
         // Update the health bar based on the current health and max health values
-        healthBar.UpdateHealthBar(maxHealth, currentHealth);
+        healthBar.UpdatePlayerHealthBar(maxHealth, currentHealth);
     }
 }

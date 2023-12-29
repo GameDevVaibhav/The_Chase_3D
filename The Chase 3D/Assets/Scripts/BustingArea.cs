@@ -8,6 +8,8 @@ public class BustingArea : MonoBehaviour
 {
     public Renderer circleRenderer; // Reference to the circle Image Renderer
     public int policeCarCount = 0;
+    public float yOffset = 0.5f; // Adjust this value to set the desired y-axis position
+    public Transform playerCarTransform; // Reference to the player car's transform
 
     void Start()
     {
@@ -15,6 +17,22 @@ public class BustingArea : MonoBehaviour
         if (circleRenderer != null)
         {
             circleRenderer.enabled = false;
+        }
+
+        // Assign the player car's transform if not set in the Inspector
+        if (playerCarTransform == null)
+        {
+            playerCarTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        // Move the BustingArea with the player and set the y-axis position
+        if (playerCarTransform != null)
+        {
+            Vector3 playerPosition = playerCarTransform.position;
+            transform.position = new Vector3(playerPosition.x, yOffset, playerPosition.z);
         }
     }
 
@@ -59,7 +77,6 @@ public class BustingArea : MonoBehaviour
         if (gameObject.CompareTag("PoliceCar"))
         {
             policeCarCount--;
-            
 
             // If no more police cars, disable the renderer
             if (policeCarCount == 0)
@@ -68,6 +85,7 @@ public class BustingArea : MonoBehaviour
             }
         }
     }
+
     public bool IsActive()
     {
         return policeCarCount > 0; // BustingArea is active if there are police cars inside

@@ -20,7 +20,7 @@ public class PoliceHealthBar : MonoBehaviour
 
         transform.rotation = Quaternion.LookRotation(transform.position - camera.transform.position);
     }
-    public void  UpdateHealthBar(float maxHealth,float currentHealth)
+    public void  UpdatePoliceHealthBar(float maxHealth,float currentHealth)
     {
        healthBar.fillAmount = currentHealth/maxHealth;
     }

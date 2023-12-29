@@ -26,14 +26,18 @@ public class ShotBehaviour : MonoBehaviour
         // Check if the shot prefab hits a police car or player car collider
         if (other.CompareTag("PoliceCar") || other.CompareTag("Player")||other.CompareTag("Cash"))
         {
-           // Debug.Log("Shot Police");
+           
             explode();
         }
+        
+
         else
         {
             Destroy(gameObject,10f);
         }
     }
+
+   
 
     void explode()
     {
