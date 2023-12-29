@@ -7,6 +7,7 @@ public class PlayerGun : MonoBehaviour
 {
     public GameObject m_shotPrefab;
     public Transform gunMesh;
+    public AudioSource gunSound;
     private BustingArea bustingArea; // Reference to the BustingArea script
 
     private float rotationSpeed = 5f; // Speed of rotation towards the police car
@@ -57,6 +58,8 @@ public class PlayerGun : MonoBehaviour
             // Instantiate and shoot the laser at the nearest visible police car
             GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
             laser.GetComponent<ShotBehaviour>().SetDirection(nearestVisiblePoliceCar.transform.position - gunMesh.position);
+
+            gunSound.Play();
         }
     }
 
@@ -73,6 +76,7 @@ public class PlayerGun : MonoBehaviour
             // Instantiate and shoot the laser at the nearest visible cube
             GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
             laser.GetComponent<ShotBehaviour>().SetDirection(nearestVisibleCube.transform.position - gunMesh.position);
+            gunSound.Play();
         }
     }
 
