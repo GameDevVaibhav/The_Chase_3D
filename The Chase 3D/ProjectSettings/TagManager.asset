@@ -8,6 +8,7 @@ TagManager:
   - PoliceCar
   - Shot
   - Cash
+  - Health
   layers:
   - Default
   - TransparentFX

@@ -71,21 +71,7 @@ public class PoliceCarCollison : MonoBehaviour
         Debug.Log("shotdamage "+shotDamage);
         
         
-        //if (isCollidingWithPoliceCar)
-        //{
-        //    collisionTimer += Time.deltaTime;
-        //    currentHealth = currentHealth - collisionTimer; 
-        //    Debug.Log(currentHealth);
-        //    //healthBar.UpdateHealthBar(maxHealth, currentHealth);
-        //    //// Check if the collision has lasted for more than 4 seconds
-        //    //if (currentHealth < 0)
-        //    //{
-
-        //    //    AudioManager.Instance.PlayExplosionSound(); // Access the AudioManager to play the explosion sound
-        //    //    Destroy(gameObject);
-        //    //    InstantiateExplosion();
-        //    //}
-        //}
+       
         healthBar.UpdateHealthBar(maxHealth, currentHealth);
         // Check if the collision has lasted for more than 4 seconds
         if (currentHealth < 0)

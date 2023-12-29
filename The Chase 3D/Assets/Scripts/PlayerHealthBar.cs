@@ -18,8 +18,5 @@ public class PlayerHealthBar : MonoBehaviour
         Color healthColor = Color.Lerp(Color.red, Color.green, (currentHealth / maxHealth));
         healthBar.color = healthColor;  
     }
-    void ColorChange()
-    {
-        
-    }
+    
 }
