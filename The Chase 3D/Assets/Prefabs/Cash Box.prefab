@@ -146,4 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be46843839fc4b4e90e5ace5b80cec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dollarBillParticles: {fileID: 8442450129322678881, guid: 277b4f5d7f4b9b745914a8bdab4b968f, type: 3}
+  dollarBillParticles: {fileID: 431068477327622512, guid: d08511da04ad9474580181c0e46e575e, type: 3}
+  cashBoxMaterial: {fileID: 0}
+  emissionIncreaseRate: 0.2
