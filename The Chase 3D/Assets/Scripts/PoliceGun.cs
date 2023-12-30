@@ -7,6 +7,7 @@ public class PoliceGun : MonoBehaviour
     public GameObject m_shotPrefab;
     public Transform gunMesh; // Reference to the gun mesh
     private GameObject playerCar;
+    public AudioSource gunSound;
 
     public float shootingDistance = 50f; // The distance at which the police car can shoot
     private float rotationSpeed = 5f; // Speed of rotation towards the player car
@@ -23,6 +24,7 @@ public class PoliceGun : MonoBehaviour
     {
         // Check if the player car is within shooting distance and shoot automatically
         TryToShootAtPlayerCar();
+        
     }
 
     void TryToShootAtPlayerCar()
@@ -30,7 +32,7 @@ public class PoliceGun : MonoBehaviour
         if (Time.time >= nextShootTime && playerCar != null)
         {
             float distanceToPlayer = Vector3.Distance(gunMesh.position, playerCar.transform.position);
-
+            
             if (distanceToPlayer <= shootingDistance)
             {
                 // Rotate the gun mesh towards the player car using LookAt
@@ -49,6 +51,7 @@ public class PoliceGun : MonoBehaviour
                // Debug.Log("Shotspeed" + adjustedShotSpeed);
                 // Update the next shoot time based on the cooldown
                 nextShootTime = Time.time + shootCooldown;
+                gunSound.Play();
             }
         }
     }
