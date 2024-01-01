@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ public class BustingArea : MonoBehaviour
     private float bustingTimer = 0f;
     private float bustingDuration = 4f; // Adjust this value for the desired duration
     public BustingBar bustingBar;
-
+    public TextMeshProUGUI bustingText;
     void Start()
     {
         bustingBar = FindObjectOfType<BustingBar>();
@@ -43,6 +44,7 @@ public class BustingArea : MonoBehaviour
             // Check if the BustingArea is active
             if (IsActive())
             {
+                bustingText.gameObject.SetActive(true);
                 // Start or continue the busting timer
                 if (!isBusting)
                 {
@@ -63,6 +65,7 @@ public class BustingArea : MonoBehaviour
             }
             else
             {
+                bustingText.gameObject.SetActive(false);
                 // Reset the busting timer when the area is not active
                 isBusting = false;
                 bustingTimer = 0f;
