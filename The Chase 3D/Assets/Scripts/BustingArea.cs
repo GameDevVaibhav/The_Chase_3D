@@ -6,46 +6,78 @@ using UnityEngine.UI;
 
 public class BustingArea : MonoBehaviour
 {
-    public Renderer circleRenderer; // Reference to the circle Image Renderer
+    public Renderer circleRenderer;
     public int policeCarCount = 0;
-    public float yOffset = 0.5f; // Adjust this value to set the desired y-axis position
-    public Transform playerCarTransform; // Reference to the player car's transform
+    public float yOffset = 0.5f;
+    public Transform playerCarTransform;
+
+    private bool isBusting = false;
+    private float bustingTimer = 0f;
+    private float bustingDuration = 4f; // Adjust this value for the desired duration
+    public BustingBar bustingBar;
 
     void Start()
     {
-        // Ensure the circleRenderer is initially disabled
+        bustingBar = FindObjectOfType<BustingBar>();
         if (circleRenderer != null)
         {
             circleRenderer.enabled = false;
         }
 
-        // Assign the player car's transform if not set in the Inspector
         if (playerCarTransform == null)
         {
             playerCarTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
     }
-
+    private void Update()
+    {
+        bustingBar.UpdateBustingBar(bustingTimer, bustingDuration);
+    }
     void FixedUpdate()
     {
-        // Move the BustingArea with the player and set the y-axis position
         if (playerCarTransform != null)
         {
             Vector3 playerPosition = playerCarTransform.position;
             transform.position = new Vector3(playerPosition.x, yOffset, playerPosition.z);
+
+            // Check if the BustingArea is active
+            if (IsActive())
+            {
+                // Start or continue the busting timer
+                if (!isBusting)
+                {
+                    isBusting = true;
+                    bustingTimer = 0f;
+                }
+                else
+                {
+                    bustingTimer += Time.fixedDeltaTime;
+
+                    // Check if the busting duration has been reached
+                    if (bustingTimer >= bustingDuration)
+                    {
+                        Debug.Log("Busted!");
+                        
+                    }
+                }
+            }
+            else
+            {
+                // Reset the busting timer when the area is not active
+                isBusting = false;
+                bustingTimer = 0f;
+                //bustingBar.UpdateBustingBar(bustingTimer, bustingDuration);
+            }
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Check if the collider is the police car
         if (other.CompareTag("PoliceCar"))
         {
-            // Increment the count
             policeCarCount++;
-            Debug.Log("police count: " + policeCarCount);
+           // Debug.Log("police count: " + policeCarCount);
 
-            // If not already detected, enable the renderer
             if (policeCarCount > 0)
             {
                 circleRenderer.enabled = true;
@@ -55,14 +87,11 @@ public class BustingArea : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        // Check if the collider is the police car
         if (other.CompareTag("PoliceCar"))
         {
-            // Decrement the count
             policeCarCount--;
-            Debug.Log("police count: " + policeCarCount);
+            
 
-            // If no more police cars, disable the renderer
             if (policeCarCount == 0)
             {
                 circleRenderer.enabled = false;
@@ -72,13 +101,10 @@ public class BustingArea : MonoBehaviour
 
     void OnDestroy()
     {
-        // This method is called when the GameObject is being destroyed
-        // Make sure to decrement the count when a police car is destroyed
         if (gameObject.CompareTag("PoliceCar"))
         {
             policeCarCount--;
 
-            // If no more police cars, disable the renderer
             if (policeCarCount == 0)
             {
                 circleRenderer.enabled = false;
@@ -88,7 +114,7 @@ public class BustingArea : MonoBehaviour
 
     public bool IsActive()
     {
-        return policeCarCount > 0; // BustingArea is active if there are police cars inside
+        return policeCarCount > 0;
     }
 
 }
