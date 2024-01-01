@@ -6,7 +6,9 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     public TextMeshProUGUI cashText;
+    public TextMeshProUGUI carDestroyedText;
     private int cashScore = 0;
+    private int carDestroyed = 0;
 
     void Start()
     {
@@ -21,6 +23,7 @@ public class Score : MonoBehaviour
     {
         // Update the TextMeshProUGUI component with the current cash score
         cashText.text = cashScore.ToString();
+        carDestroyedText.text = carDestroyed.ToString();
     }
 
     public void IncreaseCashScore(int amount)
@@ -30,5 +33,11 @@ public class Score : MonoBehaviour
 
         // Update the score display
         UpdateScoreText();
+    }
+    public void IncreaseCarDestroyed(int count)
+    {
+        carDestroyed+= count;
+        UpdateScoreText();
+
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PoliceCarCollison : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PoliceCarCollison : MonoBehaviour
     private float currentPoliceHealth;
     private float maxPoliceHealth = 10f;
     private float shotDamage = 1f;
-
+    private Score scoreManager;
     public BustingArea bustingArea;
 
     // Reference to the PoliceHealthBar script
@@ -19,6 +20,7 @@ public class PoliceCarCollison : MonoBehaviour
 
     void Start()
     {
+        scoreManager = FindObjectOfType<Score>();
         bustingArea = FindObjectOfType<BustingArea>();
         currentPoliceHealth = maxPoliceHealth;
         healthBar.UpdatePoliceHealthBar(maxPoliceHealth, currentPoliceHealth);
@@ -94,6 +96,7 @@ public class PoliceCarCollison : MonoBehaviour
 
     void OnDestroy()
     {
+        scoreManager.IncreaseCarDestroyed(1);
         // Check if BustingArea is found
         if (bustingArea != null)
         {
