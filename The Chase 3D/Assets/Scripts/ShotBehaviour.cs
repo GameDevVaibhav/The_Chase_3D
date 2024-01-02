@@ -29,7 +29,10 @@ public class ShotBehaviour : MonoBehaviour
            
             explode();
         }
-        
+        if (other.CompareTag("Obstacle"))
+        {
+            explode();
+        }
 
         else
         {

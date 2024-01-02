@@ -68,6 +68,7 @@ public class Mud_RockSpawnner : MonoBehaviour
     IEnumerator HandleRockLifetime(GameObject rock)
     {
         float elapsedTime = 0f;
+        float currentElapsedTime=0f;
 
         while (elapsedTime < rockLifetime)
         {
@@ -76,11 +77,12 @@ public class Mud_RockSpawnner : MonoBehaviour
             {
                 // If outside camera view, increment the elapsed time
                 elapsedTime += Time.deltaTime;
+                currentElapsedTime = elapsedTime;
             }
             else
             {
                 // If inside camera view, reset the elapsed time
-                elapsedTime = 0f;
+                elapsedTime = currentElapsedTime;
             }
 
             yield return null;

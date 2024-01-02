@@ -1486,7 +1486,7 @@ MonoBehaviour:
   spawnRadius: 50
   intervalRock1: 5
   intervalRock2: 8
-  rockLifetime: 20
+  rockLifetime: 5
 --- !u!1 &1385026506
 GameObject:
   m_ObjectHideFlags: 0
