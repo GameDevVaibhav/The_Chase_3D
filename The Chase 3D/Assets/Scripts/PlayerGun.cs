@@ -15,7 +15,7 @@ public class PlayerGun : MonoBehaviour
     private float shotCooldown = 0.1f; // Time in seconds between each shot
     private float nextShotTime;
     private int shotsFired = 0;
-    private int shotLimit = 10; 
+    private int shotLimit = 120; 
     private int shotsRemaining;
     private Camera mainCamera;
 
@@ -160,7 +160,7 @@ public class PlayerGun : MonoBehaviour
     }
     public void RefuelShots(int amount)
     {
-        Debug.Log("Refill");
+        //Debug.Log("Refill");
         if(shotLimit!=shotsRemaining)
         {
             shotsFired = 0;
