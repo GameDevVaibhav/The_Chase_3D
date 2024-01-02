@@ -9,6 +9,7 @@ TagManager:
   - Shot
   - Cash
   - Health
+  - Lights
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - obstacle
   - Minimap
-  - 
+  - Lights
   - 
   - 
   - 
