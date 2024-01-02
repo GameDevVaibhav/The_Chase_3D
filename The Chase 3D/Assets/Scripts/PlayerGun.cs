@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static UnityEngine.Rendering.SplashScreen;
 
@@ -13,36 +14,49 @@ public class PlayerGun : MonoBehaviour
     private float rotationSpeed = 5f; // Speed of rotation towards the police car
     private float shotCooldown = 0.1f; // Time in seconds between each shot
     private float nextShotTime;
+    private int shotsFired = 0;
+    private int shotLimit = 10; 
+    private int shotsRemaining;
     private Camera mainCamera;
+
+    public TextMeshProUGUI ammoText;
+
 
     void Start()
     {
         bustingArea = FindObjectOfType<BustingArea>(); // Find the BustingArea script in the scene
         nextShotTime = Time.time; // Initialize the next shot time
         mainCamera = Camera.main; // Find the main camera
+        shotsRemaining = shotLimit;
     }
 
     void Update()
     {
-        // Check if the left mouse button is held down and enough time has passed since the last shot
-        if (Input.GetMouseButton(0) && Time.time >= nextShotTime)
+        Debug.Log("ShotRemain" + shotsRemaining);
+        
+        if (Input.GetMouseButton(0) && Time.time >= nextShotTime && shotsRemaining > 0)
         {
             // Check if the BustingArea is active and shoot automatically at the nearest visible police car
             TryToShootAtVisiblePoliceCar();
 
             // Update the next shot time based on the cooldown
             nextShotTime = Time.time + shotCooldown;
+            shotsFired++;
+             // Update shots remaining after each shot
         }
 
-        // Check if the right mouse button is pressed and enough time has passed since the last shot
-        if (Input.GetMouseButton(1) && Time.time >= nextShotTime)
+        // Check if the right mouse button is pressed, enough time has passed since the last shot, and shots remaining is greater than 0
+        if (Input.GetMouseButton(1) && Time.time >= nextShotTime && shotsRemaining > 0)
         {
             // Shoot at the nearest cube only if it is visible in the camera's view
             TryToShootAtVisibleCube();
 
             // Update the next shot time based on the cooldown
             nextShotTime = Time.time + shotCooldown;
+            shotsFired++;
+            //UpdateShotsRemaining(); // Update shots remaining after each shot
         }
+        UpdateShotsRemaining();
     }
 
     void TryToShootAtVisiblePoliceCar()
@@ -105,8 +119,6 @@ public class PlayerGun : MonoBehaviour
         transform.parent.LookAt(targetPosition);
     }
 
- 
-
     GameObject FindNearestVisiblePoliceCar()
     {
         GameObject[] policeCars = GameObject.FindGameObjectsWithTag("PoliceCar");
@@ -129,21 +141,40 @@ public class PlayerGun : MonoBehaviour
 
     GameObject FindNearestVisibleCube()
     {
-        GameObject[] cubes = GameObject.FindGameObjectsWithTag("Cash");
+        GameObject[] cashBoxes = GameObject.FindGameObjectsWithTag("Cash");
 
         GameObject nearestVisibleCube = null;
         float nearestDistance = float.MaxValue;
 
-        foreach (GameObject cube in cubes)
+        foreach (GameObject cashBox in cashBoxes)
         {
-            float distance = Vector3.Distance(transform.position, cube.transform.position);
-            if (distance < nearestDistance && IsObjectVisibleInCamera(cube))
+            float distance = Vector3.Distance(transform.position, cashBox.transform.position);
+            if (distance < nearestDistance && IsObjectVisibleInCamera(cashBox))
             {
                 nearestDistance = distance;
-                nearestVisibleCube = cube;
+                nearestVisibleCube = cashBox;
             }
         }
 
         return nearestVisibleCube;
+    }
+    public void RefuelShots(int amount)
+    {
+        Debug.Log("Refill");
+        if(shotLimit!=shotsRemaining)
+        {
+            shotsFired = 0;
+
+            shotsRemaining += amount;
+        }
+        
+
+       
+        // shotLimit = Mathf.Min(maxShotLimit, shotLimit);
+    }
+    void UpdateShotsRemaining()
+    {
+        shotsRemaining = Mathf.Clamp(shotLimit - shotsFired, 0, shotLimit); 
+        ammoText.text = shotsRemaining.ToString()+" / "+shotLimit;
     }
 }
