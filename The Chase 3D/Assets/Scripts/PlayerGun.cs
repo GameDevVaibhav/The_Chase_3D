@@ -18,6 +18,7 @@ public class PlayerGun : MonoBehaviour
     private int shotLimit = 120; 
     private int shotsRemaining;
     private Camera mainCamera;
+    private bool isGameOver = false;
 
     public TextMeshProUGUI ammoText;
 
@@ -32,31 +33,34 @@ public class PlayerGun : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("ShotRemain" + shotsRemaining);
+        if (!isGameOver)
+        {
+            if (Input.GetMouseButton(0) && Time.time >= nextShotTime && shotsRemaining > 0)
+            {
+                // Check if the BustingArea is active and shoot automatically at the nearest visible police car
+                TryToShootAtVisiblePoliceCar();
+
+                // Update the next shot time based on the cooldown
+                nextShotTime = Time.time + shotCooldown;
+                shotsFired++;
+                // Update shots remaining after each shot
+            }
+
+            // Check if the right mouse button is pressed, enough time has passed since the last shot, and shots remaining is greater than 0
+            if (Input.GetMouseButton(1) && Time.time >= nextShotTime && shotsRemaining > 0)
+            {
+                // Shoot at the nearest cube only if it is visible in the camera's view
+                TryToShootAtVisibleCube();
+
+                // Update the next shot time based on the cooldown
+                nextShotTime = Time.time + shotCooldown;
+                shotsFired++;
+                //UpdateShotsRemaining(); // Update shots remaining after each shot
+            }
+            UpdateShotsRemaining();
+        }
         
-        if (Input.GetMouseButton(0) && Time.time >= nextShotTime && shotsRemaining > 0)
-        {
-            // Check if the BustingArea is active and shoot automatically at the nearest visible police car
-            TryToShootAtVisiblePoliceCar();
-
-            // Update the next shot time based on the cooldown
-            nextShotTime = Time.time + shotCooldown;
-            shotsFired++;
-             // Update shots remaining after each shot
-        }
-
-        // Check if the right mouse button is pressed, enough time has passed since the last shot, and shots remaining is greater than 0
-        if (Input.GetMouseButton(1) && Time.time >= nextShotTime && shotsRemaining > 0)
-        {
-            // Shoot at the nearest cube only if it is visible in the camera's view
-            TryToShootAtVisibleCube();
-
-            // Update the next shot time based on the cooldown
-            nextShotTime = Time.time + shotCooldown;
-            shotsFired++;
-            //UpdateShotsRemaining(); // Update shots remaining after each shot
-        }
-        UpdateShotsRemaining();
+        
     }
 
     void TryToShootAtVisiblePoliceCar()
@@ -176,5 +180,10 @@ public class PlayerGun : MonoBehaviour
     {
         shotsRemaining = Mathf.Clamp(shotLimit - shotsFired, 0, shotLimit); 
         ammoText.text = shotsRemaining.ToString()+" / "+shotLimit;
+    }
+
+    public void SetGameOverState()
+    {
+        isGameOver = true;
     }
 }

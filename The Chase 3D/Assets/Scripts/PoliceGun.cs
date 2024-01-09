@@ -13,6 +13,7 @@ public class PoliceGun : MonoBehaviour
     private float rotationSpeed = 5f; // Speed of rotation towards the player car
     private float shootCooldown = 1f; // Time in seconds between each shot
     private float nextShootTime;
+    private bool isGameOver = false;
 
     void Start()
     {
@@ -23,7 +24,11 @@ public class PoliceGun : MonoBehaviour
     void Update()
     {
         // Check if the player car is within shooting distance and shoot automatically
-        TryToShootAtPlayerCar();
+        if (!isGameOver)
+        {
+            TryToShootAtPlayerCar();
+        }
+        
         
     }
 
@@ -60,5 +65,10 @@ public class PoliceGun : MonoBehaviour
     {
         // Use Transform.LookAt to make the gun mesh look at the player car
         gunMesh.LookAt(playerCar.transform.position);
+    }
+
+    public void SetGameOverState()
+    {
+        isGameOver = true;
     }
 }

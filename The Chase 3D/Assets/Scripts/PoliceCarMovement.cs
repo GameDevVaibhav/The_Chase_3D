@@ -23,6 +23,7 @@ public class PoliceCarMovement : MonoBehaviour
     private GameObject playerCar;
     private Rigidbody myRigidBody;
     public bool isChasing = false;
+    private bool isGameOver = false;
 
     void Start()
     {
@@ -31,14 +32,18 @@ public class PoliceCarMovement : MonoBehaviour
     }
     void Update()
     {
-        if (!isChasing)
+        if (!isGameOver)
         {
-            // Check if the player is within the detection radius
-            if (Vector3.Distance(transform.position, playerCar.transform.position) < detectionRadius)
+            if (!isChasing)
             {
-                isChasing = true;
+                // Check if the player is within the detection radius
+                if (Vector3.Distance(transform.position, playerCar.transform.position) < detectionRadius)
+                {
+                    isChasing = true;
+                }
             }
         }
+        
     }
     void FixedUpdate()
     {
@@ -138,6 +143,10 @@ public class PoliceCarMovement : MonoBehaviour
        
 
 
+    }
+    public void SetGameOverState()
+    {
+        isGameOver = true;
     }
 
 

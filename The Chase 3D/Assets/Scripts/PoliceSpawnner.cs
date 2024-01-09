@@ -9,6 +9,7 @@ public class PoliceSpawnner : MonoBehaviour
     public float spawnInterval = 5f;   // Time in seconds between each spawn
 
     private GameObject[] lastSpawnedCars;
+    private bool isGameOver = false;
 
     void Start()
     {
@@ -18,15 +19,24 @@ public class PoliceSpawnner : MonoBehaviour
 
     void SpawnPoliceCars()
     {
-        for (int i = 0; i < spawnPoints.Length; i++)
+        if(!isGameOver)
         {
-            Transform spawnPoint = spawnPoints[i];
-
-            if (lastSpawnedCars[i] == null || Vector3.Distance(lastSpawnedCars[i].transform.position, spawnPoint.position) > 2f)
+            for (int i = 0; i < spawnPoints.Length; i++)
             {
-                GameObject newCar = Instantiate(policeCarPrefab, spawnPoint.position, spawnPoint.rotation);
-                lastSpawnedCars[i] = newCar;
+                Transform spawnPoint = spawnPoints[i];
+
+                if (lastSpawnedCars[i] == null || Vector3.Distance(lastSpawnedCars[i].transform.position, spawnPoint.position) > 2f)
+                {
+                    GameObject newCar = Instantiate(policeCarPrefab, spawnPoint.position, spawnPoint.rotation);
+                    lastSpawnedCars[i] = newCar;
+                }
             }
         }
+       
+    }
+
+    public void SetGameOverState()
+    {
+        isGameOver = true;
     }
 }

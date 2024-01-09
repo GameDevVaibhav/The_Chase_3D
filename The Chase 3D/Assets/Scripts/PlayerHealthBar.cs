@@ -8,6 +8,7 @@ public class PlayerHealthBar : MonoBehaviour
     public Image healthBar;
     float lerpSpeed;
     public GameManager gameManager;
+    
     private void Update()
     {
         lerpSpeed = 3f * Time.deltaTime;
@@ -22,6 +23,7 @@ public class PlayerHealthBar : MonoBehaviour
         // Check if health is zero and trigger game over
         if (currentHealth <= 0f)
         {
+            
             gameManager.HandleGameOver();
         }
     }

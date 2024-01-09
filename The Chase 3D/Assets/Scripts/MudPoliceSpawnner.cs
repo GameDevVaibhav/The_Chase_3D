@@ -9,6 +9,7 @@ public class MudPoliceSpawnner : MonoBehaviour
 
     public GameObject playerObject;
     private Camera mainCamera;
+    private bool isGameOver = false;
 
     void Start()
     {
@@ -24,22 +25,26 @@ public class MudPoliceSpawnner : MonoBehaviour
 
     void SpawnCar()
     {
-        // Check if the player object and main camera are assigned
-        if (playerObject != null && mainCamera != null)
+        if(!isGameOver)
         {
-            // Set the Y-axis position for the car
-            float spawnY = 0.5f;
+            // Check if the player object and main camera are assigned
+            if (playerObject != null && mainCamera != null)
+            {
+                // Set the Y-axis position for the car
+                float spawnY = 0.5f;
 
-            // Calculate a spawn position outside the camera view
-            Vector3 spawnPosition = GetRandomPositionOutsideCamera(spawnY);
+                // Calculate a spawn position outside the camera view
+                Vector3 spawnPosition = GetRandomPositionOutsideCamera(spawnY);
 
-            // Instantiate the car prefab at the calculated position
-            Instantiate(carPrefab, spawnPosition, Quaternion.identity);
+                // Instantiate the car prefab at the calculated position
+                Instantiate(carPrefab, spawnPosition, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogError("Player object or main camera not assigned in the inspector!");
+            }
         }
-        else
-        {
-            Debug.LogError("Player object or main camera not assigned in the inspector!");
-        }
+        
     }
 
     Vector3 GetRandomPositionOutsideCamera(float spawnY)
@@ -56,5 +61,10 @@ public class MudPoliceSpawnner : MonoBehaviour
         spawnPosition.y = spawnY;
 
         return spawnPosition;
+    }
+
+    public void SetGameOverState()
+    {
+        isGameOver = true;
     }
 }
