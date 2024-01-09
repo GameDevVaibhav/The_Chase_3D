@@ -14,6 +14,9 @@ public class PoliceCarCollison : MonoBehaviour
     private float shotDamage = 1f;
     private Score scoreManager;
     public BustingArea bustingArea;
+    
+
+    public GameOverUI gameOverUI;
 
     // Reference to the PoliceHealthBar script
     [SerializeField] private PoliceHealthBar healthBar; // Assuming you have a reference to the PoliceHealthBar
@@ -40,10 +43,14 @@ public class PoliceCarCollison : MonoBehaviour
 
         if ((playerCollision || obstacleCollision) && !isCollidingWithPoliceCar)
         {
-
-            AudioManager.Instance.PlayExplosionSound(); // Access the AudioManager to play the explosion sound
-            Destroy(gameObject);
-            InstantiateExplosion();
+            gameOverUI = FindObjectOfType<GameOverUI>();
+            if (gameOverUI == null)
+            {
+                AudioManager.Instance.PlayExplosionSound(); // Access the AudioManager to play the explosion sound
+                Destroy(gameObject);
+                InstantiateExplosion();
+            }
+            
         }
     }
 
@@ -112,5 +119,7 @@ public class PoliceCarCollison : MonoBehaviour
             
         }
     }
+
+   
 
 }

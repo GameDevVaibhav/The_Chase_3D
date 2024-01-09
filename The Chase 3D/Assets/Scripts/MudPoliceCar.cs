@@ -52,6 +52,7 @@ public class MudPoliceCar : MonoBehaviour
             }
             else
             {
+                
                 // Continue chasing behavior
                 Vector3 pointTarget = transform.position - playerCar.transform.position;
                 pointTarget.Normalize();

@@ -17,6 +17,8 @@ public class BustingArea : MonoBehaviour
     private float bustingDuration = 4f; // Adjust this value for the desired duration
     public BustingBar bustingBar;
     public TextMeshProUGUI bustingText;
+
+    public GameManager gameManager;
     void Start()
     {
         bustingBar = FindObjectOfType<BustingBar>();
@@ -59,7 +61,7 @@ public class BustingArea : MonoBehaviour
                     if (bustingTimer >= bustingDuration)
                     {
                         Debug.Log("Busted!");
-                        
+                        gameManager.HandleGameOver();
                     }
                 }
             }

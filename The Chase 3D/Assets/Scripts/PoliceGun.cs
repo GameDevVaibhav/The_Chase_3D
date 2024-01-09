@@ -15,16 +15,20 @@ public class PoliceGun : MonoBehaviour
     private float nextShootTime;
     private bool isGameOver = false;
 
+    public GameOverUI gameOverUI;
+
     void Start()
     {
         playerCar = GameObject.FindGameObjectWithTag("Player"); // Find the player car by tag
+       
         nextShootTime = Time.time; // Initialize the next shoot time
     }
 
     void Update()
     {
+        gameOverUI=FindObjectOfType<GameOverUI>();
         // Check if the player car is within shooting distance and shoot automatically
-        if (!isGameOver)
+        if (gameOverUI ==null)
         {
             TryToShootAtPlayerCar();
         }

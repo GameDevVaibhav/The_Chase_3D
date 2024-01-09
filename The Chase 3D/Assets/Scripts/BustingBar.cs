@@ -9,6 +9,8 @@ public class BustingBar : MonoBehaviour
     public Image bustingBar;
     float lerpSpeed;
 
+    
+
     private void Update()
     {
         lerpSpeed = 3f * Time.deltaTime;
@@ -25,6 +27,7 @@ public class BustingBar : MonoBehaviour
         float newAlpha = Mathf.Lerp(currentAlpha, targetAlpha, lerpSpeed);
 
         SetBarAlpha(newAlpha);
+        
     }
 
     private void SetBarAlpha(float alpha)

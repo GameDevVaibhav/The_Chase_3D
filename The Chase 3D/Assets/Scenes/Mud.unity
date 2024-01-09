@@ -608,6 +608,7 @@ MonoBehaviour:
   playerCarTransform: {fileID: 4423880394014969338}
   bustingBar: {fileID: 2105957724}
   bustingText: {fileID: 1576737464}
+  gameManager: {fileID: 1880910119}
 --- !u!135 &140773668
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2886,6 +2887,9 @@ MonoBehaviour:
   playerCarController: {fileID: 2693025060814199498}
   playerGun: {fileID: 1856387063746442907}
   mudPoliceSpawnner: {fileID: 397565554}
+  policeCarMovement: {fileID: 0}
+  policeCarCollision: {fileID: 0}
+  isGameOver: 0
 --- !u!4 &1880910120
 Transform:
   m_ObjectHideFlags: 0
@@ -7488,7 +7492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a823d5a47d4e04948b1857d438fada94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 20
   currentHealth: 0
   healthBar: {fileID: 873349464}
 --- !u!4 &1938465804058197381
@@ -14199,6 +14203,7 @@ MonoBehaviour:
   playerCarTransform: {fileID: 0}
   bustingBar: {fileID: 0}
   bustingText: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!23 &5933445546607632070
 MeshRenderer:
   m_ObjectHideFlags: 0

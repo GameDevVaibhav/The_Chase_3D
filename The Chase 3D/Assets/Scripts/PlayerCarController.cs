@@ -46,6 +46,7 @@ public class PlayerCarController : MonoBehaviour
             // If the game is over, stop player input and make the player static
             myRigidBody.velocity = Vector3.zero;
             myRigidBody.angularVelocity = Vector3.zero;
+            myRigidBody.isKinematic = true;
         }
     }
 

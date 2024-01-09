@@ -11,27 +11,27 @@ public class GameManager : MonoBehaviour
     private PoliceGun policeGun;
     public MudPoliceSpawnner mudPoliceSpawnner;
     public PoliceCarMovement policeCarMovement;
+    public PoliceCarCollison policeCarCollision;
 
-   
+    public bool isGameOver = false;
+
+
     public void HandleGameOver()
     {
         playUi.SetActive(false);
-
+        isGameOver=true;
         playerCarController.SetGameOverState();
         playerGun.SetGameOverState();
 
-        policeGun = FindObjectOfType<PoliceGun>();
-        policeGun.SetGameOverState();
-        if(mudPoliceSpawnner != null) 
+        
+
+        
+        if (mudPoliceSpawnner != null)
         {
             mudPoliceSpawnner.SetGameOverState();
         }
+
         
-        policeCarMovement= FindObjectOfType<PoliceCarMovement>();
-        if(policeCarMovement!= null)
-        {
-            policeCarMovement.SetGameOverState();
-        }
 
         gameOverUi.SetActive(true);
     }
