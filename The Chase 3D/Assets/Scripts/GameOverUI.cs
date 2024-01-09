@@ -11,4 +11,8 @@ public class GameOverUI : MonoBehaviour
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
