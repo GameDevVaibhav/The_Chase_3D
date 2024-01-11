@@ -1,11 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOverUI : MonoBehaviour
 {
-    // This method is called when the restart button is clicked
+    public Score score;
+    public TextMeshProUGUI cashText;
+    public TextMeshProUGUI carDestroyedText;
+
+    private void Start()
+    {
+        UpdateCashText();
+        UpdateCarDestroyedText();
+    }
+    private void UpdateCashText()
+    {
+        // Retrieve the cash value from the ScoreManager.
+        int cash = score.cashScore;
+
+        // Update the Text component on the Game Over panel.
+        cashText.text = cash.ToString();
+    }
+    private void UpdateCarDestroyedText()
+    {
+        int carDestroyed = score.carDestroyed;
+
+        carDestroyedText.text = carDestroyed.ToString();
+    }
+   
     public void RestartScene()
     {
         // Reload the current scene
