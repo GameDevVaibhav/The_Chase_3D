@@ -21,13 +21,13 @@ public class GameOverUI : MonoBehaviour
         int cash = score.cashScore;
 
         // Update the Text component on the Game Over panel.
-        cashText.text = cash.ToString();
+        cashText.text = " - "+cash.ToString();
     }
     private void UpdateCarDestroyedText()
     {
         int carDestroyed = score.carDestroyed;
 
-        carDestroyedText.text = carDestroyed.ToString();
+        carDestroyedText.text = " - "+carDestroyed.ToString();
     }
    
     public void RestartScene()

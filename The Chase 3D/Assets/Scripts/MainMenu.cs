@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -7,12 +8,20 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject objectToActivate1; // Reference to the first GameObject you want to activate
-    public GameObject objectToActivate2; // Reference to the second GameObject you want to activate
+    public GameObject objectToActivate1; 
+    public GameObject objectToActivate2;
+
+    public TextMeshProUGUI cashHighscore;
+    public TextMeshProUGUI carDestroyedHighscore;
 
     // Start is called before the first frame update
     void Start()
     {
+        int cash = PlayerPrefs.GetInt("CashHighscore", 0);
+        int car = PlayerPrefs.GetInt("CarDestroyedHighScore", 0);
+        cashHighscore.text= cash.ToString();
+        carDestroyedHighscore.text= car.ToString();
+
         // Assuming you have two buttons as direct children of the Canvas
         Button[] buttons = GetComponentsInChildren<Button>();
         foreach (Button button in buttons)
