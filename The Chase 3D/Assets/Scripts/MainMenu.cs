@@ -13,14 +13,18 @@ public class MainMenu : MonoBehaviour
 
     public TextMeshProUGUI cashHighscore;
     public TextMeshProUGUI carDestroyedHighscore;
+    public TextMeshProUGUI flagCollectedHighscore;
 
     // Start is called before the first frame update
     void Start()
     {
         int cash = PlayerPrefs.GetInt("CashHighscore", 0);
         int car = PlayerPrefs.GetInt("CarDestroyedHighScore", 0);
+        int flag= PlayerPrefs.GetInt("FlagCollectedHighScore", 0);
+
         cashHighscore.text= cash.ToString();
         carDestroyedHighscore.text= car.ToString();
+        flagCollectedHighscore.text= flag.ToString();
 
         // Assuming you have two buttons as direct children of the Canvas
         Button[] buttons = GetComponentsInChildren<Button>();

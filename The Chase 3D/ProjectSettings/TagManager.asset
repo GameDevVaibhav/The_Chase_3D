@@ -10,6 +10,7 @@ TagManager:
   - Cash
   - Health
   - Lights
+  - Flag
   layers:
   - Default
   - TransparentFX

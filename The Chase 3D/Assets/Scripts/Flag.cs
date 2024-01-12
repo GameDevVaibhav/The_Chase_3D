@@ -28,4 +28,6 @@ public class Flag : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    
 }
