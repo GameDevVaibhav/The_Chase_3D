@@ -1780,9 +1780,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cashText: {fileID: 356072420}
   carDestroyedText: {fileID: 1021854171}
+  flagCollectedText: {fileID: 0}
   notificationText: {fileID: 990769222}
   cashScore: 0
   carDestroyed: 0
+  flagCollected: 0
 --- !u!1 &990769220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,7 +1802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &990769221
 RectTransform:
   m_ObjectHideFlags: 0

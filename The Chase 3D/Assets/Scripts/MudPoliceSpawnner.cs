@@ -11,9 +11,13 @@ public class MudPoliceSpawnner : MonoBehaviour
     private Camera mainCamera;
     private bool isGameOver = false;
 
+    private Score score;
+    private int carDestroyed = 0;
+
     void Start()
     {
         mainCamera = Camera.main;
+        score = FindObjectOfType<Score>();
 
         if (mainCamera == null)
         {
@@ -21,6 +25,11 @@ public class MudPoliceSpawnner : MonoBehaviour
         }
 
         InvokeRepeating("SpawnCar", 0f, spawnInterval);
+    }
+    private void Update()
+    {
+        carDestroyed = score.carDestroyed;
+        
     }
 
     void SpawnCar()
@@ -32,12 +41,24 @@ public class MudPoliceSpawnner : MonoBehaviour
             {
                 // Set the Y-axis position for the car
                 float spawnY = 0.5f;
+                int noOfCars = 1;
+                if (carDestroyed > 10&&carDestroyed<20)
+                {
+                    noOfCars = 2;
+                }
+                else if (carDestroyed >= 20)
+                {
+                    noOfCars = 3;
+                }
+                for(int i = 0; i < noOfCars; i++)
+                {
+                    // Calculate a spawn position outside the camera view
+                    Vector3 spawnPosition = GetRandomPositionOutsideCamera(spawnY);
 
-                // Calculate a spawn position outside the camera view
-                Vector3 spawnPosition = GetRandomPositionOutsideCamera(spawnY);
-
-                // Instantiate the car prefab at the calculated position
-                Instantiate(carPrefab, spawnPosition, Quaternion.identity);
+                    // Instantiate the car prefab at the calculated position
+                    Instantiate(carPrefab, spawnPosition, Quaternion.identity);
+                }
+                
             }
             else
             {
