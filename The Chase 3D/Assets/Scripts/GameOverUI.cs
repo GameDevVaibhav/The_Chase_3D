@@ -9,11 +9,14 @@ public class GameOverUI : MonoBehaviour
     public Score score;
     public TextMeshProUGUI cashText;
     public TextMeshProUGUI carDestroyedText;
+    public TextMeshProUGUI flagCollectedText;
 
     private void Start()
     {
         UpdateCashText();
         UpdateCarDestroyedText();
+
+        UpdateFlagCollectedText();
     }
     private void UpdateCashText()
     {
@@ -28,6 +31,14 @@ public class GameOverUI : MonoBehaviour
         int carDestroyed = score.carDestroyed;
 
         carDestroyedText.text = " - "+carDestroyed.ToString();
+    }
+    private void UpdateFlagCollectedText()
+    {
+        int flagCollected = score.flagCollected;
+    if(flagCollectedText!= null)
+        {
+            flagCollectedText.text= " - "+flagCollected.ToString();
+        }
     }
    
     public void RestartScene()

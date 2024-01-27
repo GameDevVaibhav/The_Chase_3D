@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverUi;
     public GameObject playUi;
+    public GameObject pauseMenu;
     public PlayerCarController playerCarController;
     public PlayerGun playerGun;
     private PoliceGun policeGun;
@@ -15,7 +17,13 @@ public class GameManager : MonoBehaviour
 
     public bool isGameOver = false;
 
-
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            HandlePauseMenu();
+        }
+    }
     public void HandleGameOver()
     {
         playUi.SetActive(false);
@@ -34,5 +42,24 @@ public class GameManager : MonoBehaviour
         
 
         gameOverUi.SetActive(true);
+    }
+
+    public void HandlePauseMenu()
+    {
+        playUi.SetActive(false);
+
+        Time.timeScale = 0;
+        pauseMenu.SetActive(true);
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        playUi.SetActive(true);
+        pauseMenu.SetActive(false);
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

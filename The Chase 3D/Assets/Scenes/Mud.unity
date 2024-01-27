@@ -2484,6 +2484,7 @@ MonoBehaviour:
   score: {fileID: 873349465}
   cashText: {fileID: 2084703649}
   carDestroyedText: {fileID: 1515346048}
+  flagCollectedText: {fileID: 0}
 --- !u!1 &1228064594
 GameObject:
   m_ObjectHideFlags: 0

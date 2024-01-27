@@ -61,6 +61,10 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
 
 public class ButtonHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -72,6 +76,11 @@ public class ButtonHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
     public GameObject objectToActivate; // Reference to the GameObject you want to activate
 
     private bool isHovered = false;
+
+    private void Start()
+    {
+        
+    }
 
     private void Update()
     {
@@ -99,4 +108,5 @@ public class ButtonHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerEx
             objectToActivate.SetActive(activate);
         }
     }
+    
 }
