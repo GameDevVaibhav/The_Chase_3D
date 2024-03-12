@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Spawn PoliceCar outside the camera viewport and also checks the car destroyed score and change the number of car spawned at a time*/
 public class MudPoliceSpawnner : MonoBehaviour
 {
     public GameObject carPrefab;
@@ -36,10 +37,10 @@ public class MudPoliceSpawnner : MonoBehaviour
     {
         if(!isGameOver)
         {
-            // Check if the player object and main camera are assigned
+            
             if (playerObject != null && mainCamera != null)
             {
-                // Set the Y-axis position for the car
+                
                 float spawnY = 0.5f;
                 int noOfCars = 1;
                 if (carDestroyed > 10&&carDestroyed<20)
@@ -52,17 +53,17 @@ public class MudPoliceSpawnner : MonoBehaviour
                 }
                 for(int i = 0; i < noOfCars; i++)
                 {
-                    // Calculate a spawn position outside the camera view
+                    
                     Vector3 spawnPosition = GetRandomPositionOutsideCamera(spawnY);
 
-                    // Instantiate the car prefab at the calculated position
+                    
                     Instantiate(carPrefab, spawnPosition, Quaternion.identity);
                 }
                 
             }
             else
             {
-                Debug.LogError("Player object or main camera not assigned in the inspector!");
+                Debug.LogError("Player object or main camera not assigned ");
             }
         }
         
@@ -70,14 +71,14 @@ public class MudPoliceSpawnner : MonoBehaviour
 
     Vector3 GetRandomPositionOutsideCamera(float spawnY)
     {
-        // Get the camera's position and field of view
+        
         Vector3 cameraPosition = mainCamera.transform.position;
         float fieldOfView = mainCamera.fieldOfView;
 
-        // Determine a random direction outside the camera view
+        
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
 
-        // Calculate a position just outside the camera view with fixed Y-axis
+        
         Vector3 spawnPosition = cameraPosition + mainCamera.transform.forward * fieldOfView * 1.2f + new Vector3(randomDirection.x, 0f, randomDirection.y) * fieldOfView * 1.2f;
         spawnPosition.y = spawnY;
 

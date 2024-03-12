@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/*This script used for updating player health. It checks the collision of Car with 3 things.
+    1. PoliceCar 2.HealthObject 3.Shots
+    
+   And Accordingly change the health of the Car. 
+ 
+ */
+
 public class PlayerCarCollision : MonoBehaviour
 {
     public float maxHealth = 100f;
@@ -9,19 +18,20 @@ public class PlayerCarCollision : MonoBehaviour
 
     [SerializeField] private PlayerHealthBar healthBar;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         currentHealth = maxHealth;
         UpdatePlayerHealthBar();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         UpdatePlayerHealthBar();
     }
 
+    //collision with Police Car and Updating health
     private void OnCollisionEnter(Collision collision)
     {
         bool policeCarCollision = collision.gameObject.CompareTag("PoliceCar");
@@ -33,6 +43,7 @@ public class PlayerCarCollision : MonoBehaviour
         }
     }
 
+    //collision with shot and health object 
     private void OnTriggerEnter(Collider other)
     {
         bool shotCollision = other.gameObject.CompareTag("Shot");
@@ -48,13 +59,14 @@ public class PlayerCarCollision : MonoBehaviour
             currentHealth += 10f;
         }
 
+        //Clamping health so it does not go below 0
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
     }
 
     private void UpdatePlayerHealthBar()
     {
+        //Calling UpdatePlayerHealthBar from healthbar script
         
-        // Update the health bar based on the current health and max health values
         healthBar.UpdatePlayerHealthBar(maxHealth, currentHealth);
     }
 }

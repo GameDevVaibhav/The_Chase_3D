@@ -33,7 +33,7 @@ public class MudPoliceCar : MonoBehaviour
     {
         if (!isChasing)
         {
-            // Check if the player is within the detection radius
+            
             if (Vector3.Distance(transform.position, playerCar.transform.position) < detectionRadius)
             {
                 isChasing = true;
@@ -47,13 +47,13 @@ public class MudPoliceCar : MonoBehaviour
         {
             if (avoiding)
             {
-                // Perform avoidance behavior
+                
                 AvoidObstacle();
             }
             else
             {
                 
-                // Continue chasing behavior
+                
                 Vector3 pointTarget = transform.position - playerCar.transform.position;
                 pointTarget.Normalize();
 
@@ -66,12 +66,12 @@ public class MudPoliceCar : MonoBehaviour
     }
     void AvoidObstacle()
     {
-        // Rotate the police car to avoid the obstacle
+        
         avoidSteerSmooth = Mathf.Lerp(avoidSteerSmooth, avoidSteerMultiplier, Time.deltaTime);
 
         myRigidBody.angularVelocity = 50 * avoidSteerSmooth * new Vector3(0, 1, 0);
 
-        // You may also adjust the forward velocity to slow down when avoiding
+        
         myRigidBody.velocity = transform.forward * (chaseSpeed * 0.5f);
     }
 
@@ -81,7 +81,7 @@ public class MudPoliceCar : MonoBehaviour
         Vector3 sensorStartPos = transform.position;
         sensorStartPos += transform.forward * frontSen.z;
         sensorStartPos += transform.up * frontSen.y;
-        //float avoidMultipler = 0f;
+        
         avoiding = false;
 
 

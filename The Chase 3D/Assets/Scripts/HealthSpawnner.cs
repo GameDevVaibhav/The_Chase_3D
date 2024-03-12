@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Spawn health pickup inside certain radius*/
 public class HealthSpawnner : MonoBehaviour
 {
     public GameObject healthPrefab;

@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This Script is used to spawn police car. Spawn points are already fixed on the map and police car will be spawned there when game starts
+    Also if the car has moved from its spawnpoint then new car will be spawned on that empty spawn point.
+    
+ */
+
 public class PoliceSpawnner : MonoBehaviour
 {
-    public GameObject policeCarPrefab; // Drag your police car prefab here
-    public Transform[] spawnPoints;    // Add your spawn points in the Inspector
-    public float spawnInterval = 5f;   // Time in seconds between each spawn
+    public GameObject policeCarPrefab; 
+    public Transform[] spawnPoints;    
+    public float spawnInterval = 5f;   
 
     private GameObject[] lastSpawnedCars;
     private bool isGameOver = false;

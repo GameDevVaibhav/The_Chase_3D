@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This scripts has methods that plays audio when there is explosion */
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;

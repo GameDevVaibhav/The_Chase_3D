@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*It handles gameOverui and Pausemenu*/
+
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverUi;

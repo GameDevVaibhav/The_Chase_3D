@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/* GameOverUi shows the final scores of the player and has methods to Restart the game or return to mainmenu*/
 public class GameOverUI : MonoBehaviour
 {
     public Score score;

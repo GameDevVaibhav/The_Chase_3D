@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/* check the collision of police car and instantiate explosionvfx and audio
+    when shots hit the police car police car health is reduced.
+    it also access the busting are to update the count if any police car is destroyed inside the area.
+ */
 public class PoliceCarCollison : MonoBehaviour
 {
-    public GameObject explosionPrefab; // Drag your explosion prefab here
+    public GameObject explosionPrefab; 
    
     private bool isCollidingWithPoliceCar = false;
     private float currentPoliceHealth;
@@ -18,8 +22,8 @@ public class PoliceCarCollison : MonoBehaviour
 
     public GameOverUI gameOverUI;
 
-    // Reference to the PoliceHealthBar script
-    [SerializeField] private PoliceHealthBar healthBar; // Assuming you have a reference to the PoliceHealthBar
+   
+    [SerializeField] private PoliceHealthBar healthBar; 
 
     void Start()
     {
@@ -46,7 +50,7 @@ public class PoliceCarCollison : MonoBehaviour
             gameOverUI = FindObjectOfType<GameOverUI>();
             if (gameOverUI == null)
             {
-                AudioManager.Instance.PlayExplosionSound(); // Access the AudioManager to play the explosion sound
+                AudioManager.Instance.PlayExplosionSound(); 
                 Destroy(gameObject);
                 InstantiateExplosion();
             }
@@ -86,7 +90,7 @@ public class PoliceCarCollison : MonoBehaviour
         if (currentPoliceHealth < 0)
         {
 
-            AudioManager.Instance.PlayExplosionSound(); // Access the AudioManager to play the explosion sound
+            AudioManager.Instance.PlayExplosionSound(); 
             Destroy(gameObject);
             InstantiateExplosion();
         }
@@ -104,13 +108,13 @@ public class PoliceCarCollison : MonoBehaviour
     void OnDestroy()
     {
         scoreManager.IncreaseCarDestroyed(1);
-        // Check if BustingArea is found
+        
         if (bustingArea != null)
         {
-            // Decrement the count, but ensure it never goes below zero
+            
             bustingArea.policeCarCount = Mathf.Max(0, bustingArea.policeCarCount - 1);
 
-            // If no more police cars, disable the renderer
+            
             if (bustingArea.policeCarCount == 0)
             {
                 bustingArea.circleRenderer.enabled = false;

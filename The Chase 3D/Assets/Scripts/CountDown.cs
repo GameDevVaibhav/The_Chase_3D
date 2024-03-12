@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/* 3...2...1 countdown and after that playercontroller is activated and objectActivation is set active*/
 public class CountDown : MonoBehaviour
 {
     public TextMeshProUGUI countdownText;

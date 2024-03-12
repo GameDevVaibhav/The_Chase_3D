@@ -5,6 +5,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* It keeps the count of police car entering the busting area and if the count is more than 1 then busting area  will be activated and busting timer will start
+   and if the bustingtimer reach some value then player is busted.
+ */
 public class BustingArea : MonoBehaviour
 {
     public Renderer circleRenderer;
@@ -43,11 +46,11 @@ public class BustingArea : MonoBehaviour
             Vector3 playerPosition = playerCarTransform.position;
             transform.position = new Vector3(playerPosition.x, yOffset, playerPosition.z);
 
-            // Check if the BustingArea is active
+            
             if (IsActive())
             {
                 bustingText.gameObject.SetActive(true);
-                // Start or continue the busting timer
+                
                 if (!isBusting)
                 {
                     isBusting = true;
@@ -57,7 +60,7 @@ public class BustingArea : MonoBehaviour
                 {
                     bustingTimer += Time.fixedDeltaTime;
 
-                    // Check if the busting duration has been reached
+                    
                     if (bustingTimer >= bustingDuration)
                     {
                         Debug.Log("Busted!");
@@ -68,10 +71,10 @@ public class BustingArea : MonoBehaviour
             else
             {
                 bustingText.gameObject.SetActive(false);
-                // Reset the busting timer when the area is not active
+                
                 isBusting = false;
                 bustingTimer = 0f;
-                //bustingBar.UpdateBustingBar(bustingTimer, bustingDuration);
+                
             }
         }
     }

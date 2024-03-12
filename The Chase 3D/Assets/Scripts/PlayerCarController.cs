@@ -2,6 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/* This Script is attached to Player Car. Vertical inputs (W/S) controlls forward and
+ * backward movement and Horizontal Input (A/D) Controls Steer of the Car
+ * there are 2 bool variables which checks if the game has started or is over 
+ * and accordingly turns input on/off
+ * 
+ */
+
+
+
+
 public class PlayerCarController : MonoBehaviour
 {
     [SerializeField] private float speed;
@@ -10,7 +21,7 @@ public class PlayerCarController : MonoBehaviour
     private Rigidbody myRigidBody;
     private int currentAngle;
 
-    // Flag to check if the game is over
+    
     private bool isGameOver = false;
     private bool gameStarted=false;
 
@@ -25,27 +36,27 @@ public class PlayerCarController : MonoBehaviour
         {
             if (!isGameOver)
             {
-                // Get the vertical input for forward/backward movement
+                
                 float moveInput = Input.GetAxis("Vertical");
-                // Get the horizontal input for steering
+                
                 float steerInput = Input.GetAxis("Horizontal");
 
-                // Calculate the forward movement
+                
                 Vector3 moveDirection = transform.forward * moveInput * speed;
 
-                // Apply velocity for forward movement
+                
                 myRigidBody.velocity = moveDirection;
 
-                // Calculate rotation based on steering input
+                
                 float rotation = steerInput * steer;
                 Quaternion deltaRotation = Quaternion.Euler(0f, rotation, 0f);
 
-                // Apply rotation using Rigidbody.MoveRotation
+                
                 myRigidBody.MoveRotation(myRigidBody.rotation * deltaRotation);
             }
             else
             {
-                // If the game is over, stop player input and make the player static
+                
                 myRigidBody.velocity = Vector3.zero;
                 myRigidBody.angularVelocity = Vector3.zero;
                 myRigidBody.isKinematic = true;
@@ -54,13 +65,14 @@ public class PlayerCarController : MonoBehaviour
         
     }
 
+    //collisions were causing Car to unnecessary rotation so setting angular velocity to zero after a collision
     private void OnCollisionEnter(Collision collision)
     {
-        // Reset angular velocity to prevent rotation caused by collisions
+        
         myRigidBody.angularVelocity = Vector3.zero;
     }
 
-    // Method to set the game over state
+    
     public void SetGameOverState()
     {
         isGameOver = true;

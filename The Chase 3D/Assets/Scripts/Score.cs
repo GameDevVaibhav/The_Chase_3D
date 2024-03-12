@@ -4,6 +4,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
+
+/* This Script is attached to Play_Ui object. It gets all the score and flags collected data from playerprefs and update it in UI
+ * also has  notification logic which displays "HighScore" when player makes highscore
+ */
 public class Score : MonoBehaviour
 {
     public TextMeshProUGUI cashText;
@@ -38,7 +42,7 @@ public class Score : MonoBehaviour
     }
     void UpdateScoreText()
     {
-        // Update the TextMeshProUGUI component with the current cash score
+        
         cashText.text = cashScore.ToString();
         carDestroyedText.text = carDestroyed.ToString();
         if(flagCollectedText!= null)
@@ -50,10 +54,10 @@ public class Score : MonoBehaviour
 
     public void IncreaseCashScore(int amount)
     {
-        // Increase the cash score by the specified amount
+        
         cashScore += amount;
 
-        // Update the score display
+        
         UpdateScoreText();
     }
     public void IncreaseCarDestroyed(int count)
@@ -120,7 +124,7 @@ public class Score : MonoBehaviour
 
     private void ShowNotification(string message)
     {
-        // Display the notification text with the specified message
+        
         notificationText.text = message;
         notificationText.gameObject.SetActive(true);
 

@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/* Checks the distance between the police and player and shoot at it if distance is less then set distance*/
+
 public class PoliceGun : MonoBehaviour
 {
     public GameObject m_shotPrefab;
-    public Transform gunMesh; // Reference to the gun mesh
+    public Transform gunMesh; 
     private GameObject playerCar;
     public AudioSource gunSound;
 
-    public float shootingDistance = 50f; // The distance at which the police car can shoot
-    private float rotationSpeed = 5f; // Speed of rotation towards the player car
-    private float shootCooldown = 1f; // Time in seconds between each shot
+    public float shootingDistance = 50f; 
+    private float rotationSpeed = 5f; 
+    private float shootCooldown = 1f; 
     private float nextShootTime;
     private bool isGameOver = false;
 
@@ -19,15 +22,15 @@ public class PoliceGun : MonoBehaviour
 
     void Start()
     {
-        playerCar = GameObject.FindGameObjectWithTag("Player"); // Find the player car by tag
+        playerCar = GameObject.FindGameObjectWithTag("Player"); 
        
-        nextShootTime = Time.time; // Initialize the next shoot time
+        nextShootTime = Time.time; 
     }
 
     void Update()
     {
         gameOverUI=FindObjectOfType<GameOverUI>();
-        // Check if the player car is within shooting distance and shoot automatically
+        
         if (gameOverUI ==null)
         {
             TryToShootAtPlayerCar();
@@ -44,21 +47,20 @@ public class PoliceGun : MonoBehaviour
             
             if (distanceToPlayer <= shootingDistance)
             {
-                // Rotate the gun mesh towards the player car using LookAt
+                
                 RotateGunMeshTowardsPlayerCar();
 
-               // Debug.Log("Shoot at Player Car");
+               
 
-                // Calculate adjusted shot speed based on player car's speed
+                
                 float playerCarSpeed = playerCar.GetComponent<Rigidbody>().velocity.magnitude;
                 float adjustedShotSpeed = m_shotPrefab.GetComponent<ShotBehaviour>().speed + playerCarSpeed*0.3f;
 
-                // Instantiate and shoot the laser at the player car with adjusted speed
+                
                 GameObject laser = Instantiate(m_shotPrefab, transform.position, transform.rotation);
                 laser.GetComponent<ShotBehaviour>().SetDirection(playerCar.transform.position - gunMesh.position);
                 laser.GetComponent<ShotBehaviour>().speed = adjustedShotSpeed;
-               // Debug.Log("Shotspeed" + adjustedShotSpeed);
-                // Update the next shoot time based on the cooldown
+               
                 nextShootTime = Time.time + shootCooldown;
                 gunSound.Play();
             }
@@ -67,7 +69,7 @@ public class PoliceGun : MonoBehaviour
 
     void RotateGunMeshTowardsPlayerCar()
     {
-        // Use Transform.LookAt to make the gun mesh look at the player car
+        
         gunMesh.LookAt(playerCar.transform.position);
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This Script finds the flag in the scene and points the arrow towards it*/
 public class Arrow : MonoBehaviour
 {
     private FlagSpawnner flagSpawner;
@@ -9,7 +10,7 @@ public class Arrow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Find the FlagSpawner script in the scene
+        
         flagSpawner = FindObjectOfType<FlagSpawnner>();
         if (flagSpawner == null)
         {
@@ -20,7 +21,7 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Get the transform of the current flag
+        
         Transform flagTransform = flagSpawner.GetCurrentFlagTransform();
 
         // Look at the flag if it exists

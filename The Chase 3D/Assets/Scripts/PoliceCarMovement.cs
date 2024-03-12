@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/* This script contains the logic to follow player car. First it checks if the player is inside certain radius so it can start following it.
+    And second logic is avoiding other obstacles which is donne using raycast sensors
+ */
+
 public class PoliceCarMovement : MonoBehaviour
 {
     [SerializeField] private float chaseSpeed;
@@ -76,7 +81,7 @@ public class PoliceCarMovement : MonoBehaviour
 
         myRigidBody.angularVelocity = 50 * avoidSteerSmooth * new Vector3(0, 1, 0);
 
-        // You may also adjust the forward velocity to slow down when avoiding
+        // To slow down the Car
          myRigidBody.velocity = transform.forward * (chaseSpeed * 0.5f);
     }
 

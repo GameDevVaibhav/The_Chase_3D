@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/* Here there are 2 buttons City and Mud which are map and on click they will start that particular Map. And Hover over these buttons it activates object that 
+    object is a videoplayer object and plays the video of that map.
+ */
 public class MainMenu : MonoBehaviour
 {
     public GameObject objectToActivate1; 
@@ -26,15 +29,15 @@ public class MainMenu : MonoBehaviour
         carDestroyedHighscore.text= car.ToString();
         flagCollectedHighscore.text= flag.ToString();
 
-        // Assuming you have two buttons as direct children of the Canvas
+        
         Button[] buttons = GetComponentsInChildren<Button>();
         foreach (Button button in buttons)
         {
-            // Store the original scale of each button
+            
             ButtonHoverEffect hoverEffect = button.gameObject.AddComponent<ButtonHoverEffect>();
             hoverEffect.originalScale = button.transform.localScale;
 
-            // Assign the correct objectToActivate reference based on the button
+            
             if (button.name == "City")
             {
                 hoverEffect.objectToActivate = objectToActivate1;
@@ -70,10 +73,10 @@ public class MainMenu : MonoBehaviour
 public class ButtonHoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Vector3 originalScale;
-    public float popScaleFactor = 1.2f; // Adjust this value to control the pop-up effect
-    public float scaleSpeed = 5f; // Adjust this value to control the speed of scaling
+    public float popScaleFactor = 1.2f; 
+    public float scaleSpeed = 5f; 
 
-    public GameObject objectToActivate; // Reference to the GameObject you want to activate
+    public GameObject objectToActivate; 
 
     private bool isHovered = false;
 

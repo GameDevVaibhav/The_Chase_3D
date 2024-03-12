@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Attched to Ammo and it check collision and refill the Shots*/
 public class AmmoPickup : MonoBehaviour
 {
-    public int ammoRefillAmount = 10; // Set the amount to refill shots
-    public PlayerGun playerGun; // Serialized field to store a reference to the PlayerGun script
+    public int ammoRefillAmount = 10; 
+    public PlayerGun playerGun; 
 
     private void Start()
     {

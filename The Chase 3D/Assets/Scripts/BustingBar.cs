@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* When Busting area is activated busting bar and it takes value of timer from the busting Area script*/
 public class BustingBar : MonoBehaviour
 {
     public Image bustingBar;
@@ -21,7 +22,7 @@ public class BustingBar : MonoBehaviour
         float fillAmount = Mathf.Lerp(bustingBar.fillAmount, bustingTimer / bustingDuration, lerpSpeed);
         bustingBar.fillAmount = fillAmount;
 
-        // Adjust the alpha using Lerp for a smooth fade effect
+        
         float targetAlpha = fillAmount > 0 ? 1f : 0f;
         float currentAlpha = bustingBar.color.a;
         float newAlpha = Mathf.Lerp(currentAlpha, targetAlpha, lerpSpeed);

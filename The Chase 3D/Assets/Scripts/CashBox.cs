@@ -2,21 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*  This is attached to Cashbox. it checks the collision with shots and increase its emission intensity with every hit and after some shots it is destroyed and
+    cashscore is increased.
+ */
+
 public class CashBox : MonoBehaviour
 {
-    public GameObject dollarBillParticles; // Reference to the dollar bill particle system
-    public Material cashBoxMaterial; // Reference to the material of the CashBox
-    public float emissionIncreaseRate = 0.2f; // Adjust the rate at which emission intensity increases
+    public GameObject dollarBillParticles; 
+    public Material cashBoxMaterial; 
+    public float emissionIncreaseRate = 0.2f; 
 
     private int hitCount = 0;
     private Score scoreManager;
 
     void Start()
     {
-        // Find the Score script or adjust accordingly based on your setup
+        
         scoreManager = FindObjectOfType<Score>();
 
-        // Ensure that a material is assigned to the CashBox
+        
         if (cashBoxMaterial == null)
         {
             Renderer renderer = GetComponent<Renderer>();
@@ -40,18 +45,17 @@ public class CashBox : MonoBehaviour
             {
                 Color currentEmissionColor = cashBoxMaterial.GetColor("_EmissionColor");
 
-                // Assuming your emission color is green, you can modify the green channel
+                
                 float newIntensity = currentEmissionColor.g + hitCount * emissionIncreaseRate;
 
-                // Use Mathf.LinearToGammaSpace to convert the linear intensity to gamma space
+                
                 float gammaSpaceIntensity = Mathf.LinearToGammaSpace(newIntensity);
 
-                // Make sure the intensity does not exceed 1
-               // gammaSpaceIntensity = Mathf.Clamp01(gammaSpaceIntensity);
+                
 
                 Color newEmissionColor = new Color(currentEmissionColor.r, gammaSpaceIntensity, currentEmissionColor.b);
 
-                // Assign the modified emission color back to the material
+                
                 cashBoxMaterial.SetColor("_EmissionColor", newEmissionColor);
             }
 
@@ -64,13 +68,13 @@ public class CashBox : MonoBehaviour
 
     void DestroyCashBox()
     {
-        // Increase cash score by 100 when the CashBox is destroyed
+       
         scoreManager.IncreaseCashScore(100);
 
-        // Trigger the particle system for the dollar bill explosion
+       
         Instantiate(dollarBillParticles, transform.position, Quaternion.identity);
 
-        // Play the cash box destroyed sound
+        
         AudioManager.Instance.PlayCashBoxDestroyedSound();
 
         Debug.Log("CashBox Destroyed!");
