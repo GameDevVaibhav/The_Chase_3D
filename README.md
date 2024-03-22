@@ -6,7 +6,6 @@ City Pursuit offers players an adrenaline-fueled experience where they must evad
 
 # Features
 Intense Police Chases: Engage in high-speed pursuits through dynamic city environments, with police units hot on your tail.
-
 Strategic Gameplay: Use your arsenal of weapons to disable police vehicles and maintain control of the situation, but beware of return fire from law enforcement.
 Ammo Pickups: Scattered throughout each map are ammo pickups to replenish your ammunition and keep the chase going.
 Dynamic Cityscapes: Navigate through bustling cityscapes filled with traffic, pedestrians, and obstacles, adding to the challenge of evading capture.
